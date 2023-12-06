@@ -93,7 +93,7 @@ export default function Navbar() {
   //   setIsLoggedIn(true);
   // }
   const userProfile = () => {
-    router.push("/UserProfileScreen");
+    router.push("/userProfile/userProfileScreen");
   };
 
   const recipe = () => {
@@ -108,11 +108,11 @@ export default function Navbar() {
     router.push("/logIn/logInScreen");
   };
   return (
-    <nav className="flex filter drop-shadow-md bg-yellow-50 px-4 py-4 h-20 items-center border-b-2 border-amber-300">
+    <nav className="flex filter drop-shadow-md bg-green-100 px-4 py-4 h-20 items-center border-b-2">
       <MobileNav open={open} setOpen={setOpen} />
       <div className="w-3/12 flex items-center">
         <button
-          className="text-2xl font-semibold text-amber-300"
+          className="text-2xl font-semibold text-black-300"
           onClick={index}
         >
           HealthyRecipe
@@ -144,7 +144,7 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex">
-          <button onClick={recipe} className="m-2 text-green-900 text-bold">
+          <button onClick={recipe} className="m-2 text-black-300 font-bold">
             Recipe
           </button>
           {/* {isLoggedIn ? (
@@ -153,12 +153,12 @@ export default function Navbar() {
             <button onClick={handleLogin}>Log In</button>
           )} */}
           {currentUser && (
-            <button onClick={userProfile} className="m-2 text-amber-300">
-              PROFILE
+            <button onClick={userProfile} className="m-2 text-black-300 font-bold">
+              Profile
             </button>
           )}
           {!currentUser && (
-            <button onClick={login} className="m-2 text-amber-300">
+            <button onClick={login} className="m-2 text-black-300 font-bold">
               Log In
             </button>
           )}
