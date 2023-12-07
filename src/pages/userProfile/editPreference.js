@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Context } from "../../store/context";
+import { useRouter } from "next/router";
+import EditPreferenceCard from "./userProfileComponents/editPreferenceCard";
 const UserScreen = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [currentUser] = useContext(Context);
+  const router = useRouter();
   useEffect(() => {
     const username = currentUser.username;
 
@@ -16,7 +19,15 @@ const UserScreen = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentUser.username]);
+
+  const homePage = () => {
+    router.push("./userHome");
+  };
+
+  const dietaryPage = () => {
+    router.push('./editPreference/dietaryPreference')
+  }
   return (
     <div>
       <h1 className="text-center p-2 font-semibold text-xl">{`${currentUser.username} Edit Preference`}</h1>
@@ -24,33 +35,28 @@ const UserScreen = () => {
         <h1>Loading</h1>
       ) : (
         <div className="flex flex-col p-2 border-gray-400 border-2 rounded m-2">
-          <div className="flex flex-col border-2 rounded border-grey-300 p-2 m-2">
-            <h2 className="font-bold text-xl">Dietary Preferences</h2>
+          <EditPreferenceCard
+            title="Dietary Preferences"
+            userDetails={userInfo.dietary_preferences}
+            redirect = {dietaryPage}
+          />
 
-            {userInfo.dietary_preferences.map((ele) => (
-              <h4 className="font-semibold ml-2">{ele}</h4>
-            ))}
-          </div>
+          <EditPreferenceCard
+            title="Allergies"
+            userDetails={userInfo.allergies}
+          />
 
-          <div className=" flex flex-col border-2 rounded border-grey-300 p-2 m-2">
-            <h2 className="font-bold text-xl">Allergies</h2>
-            <div>
-              {userInfo.allergies.map((ele) => (
-                <h4 className="font-semibold">{ele}</h4>
-              ))}
-            </div>
-          </div>
-
-          <div className=" flex flex-col border-2 rounded border-grey-300 p-2 m-2">
-            <h2 className="font-bold text-xl">Health Goals</h2>
-            <div>
-              {userInfo.health_goals.map((ele) => (
-                <h4 className="font-semibold">{ele}</h4>
-              ))}
-            </div>
-          </div>
+          <EditPreferenceCard
+            title="Health Goals"
+            userDetails={userInfo.health_goals}
+          />
         </div>
       )}
+      <button
+        className="p-2 bg-teal-200 border-2 rounded font-semibold m-2"
+        onClick={homePage}>
+        Back to Home Page
+      </button>
     </div>
   );
 };

@@ -8,7 +8,7 @@ function Footer() {
       <div className={styles.container}>
         <div className={styles.columns}>
           <div className={styles.column}>
-            <h4>About Healthy Recipe</h4>
+            <h4 className="-semibold">About Healthy Recipe</h4>
             <ul>
               <li>
                 {" "}
