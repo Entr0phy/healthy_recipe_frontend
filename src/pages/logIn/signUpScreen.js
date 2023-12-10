@@ -7,9 +7,13 @@ export default function DisplayUserSignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [dietaryPreference, setDietaryPreference] = useState("");
-  const [allergy, setAllergy] = useState("");
-  const [healthGoals, setHealthGoals] = useState("");
+  const [dietaryPreference, setDietaryPreference] = useState(null);
+  const [selectedDiet, setSelectedDiet] = useState(null)
+  const [allergy, setAllergy] = useState([]);
+  const [healthGoals1, setHealthGoals1] = useState("");
+  const [healthGoals2, setHealthGoals2] = useState("");
+  const [healthGoals3, setHealthGoals3] = useState("");
+  const [healthGoals4, setHealthGoals4] = useState("");
   const router = useRouter();
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -23,20 +27,67 @@ export default function DisplayUserSignUp() {
     setEmail(e.target.value)
   }
 
-  const handleDietaryChange = (e) => {
-    setDietaryPreference(e.target.value);
+  const getButtonClass = (diet) => {
+    let baseClass = "appearance-none block w-full px-3 my-2 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm text-black text-start";
+    if (selectedDiet === diet) {
+      baseClass += " bg-teal-600"; // Add hover color if this diet is selected
+    } else {
+      baseClass += " hover:bg-teal-600"; // Otherwise, apply hover effect
+    }
+    return baseClass;
+  };
+
+  const handleDietaryChangeVegetarian = (e) => {
+    e.preventDefault();
+    setSelectedDiet('Vegetarian')
+    setDietaryPreference(['vegetarian']);
+  };
+
+  const handleDietaryChangeVegan = (e) => {
+    e.preventDefault();
+    setSelectedDiet('Vegan')
+    setDietaryPreference(['vegan']);
+  };
+
+  const handleDietaryChangePescatarian = (e) => {
+    e.preventDefault();
+    setSelectedDiet('pescatarian')
+    setDietaryPreference(['pescatarian']);
+  };
+
+  const handleDietaryChangeNothing = (e) => {
+    e.preventDefault();
+    setSelectedDiet('nothing')
+    setDietaryPreference(['']);
   };
 
   const handleAllergyChange = (e) => {
     setAllergy(e.target.value)
   }
 
-  const handleHealthGoalChange = (e) => {
-    setHealthGoals(e.target.value)
+  const handleHealthGoalChange1 = (e) => {
+    setHealthGoals1(e.target.value)
+  }
+
+  const handleHealthGoalChange2 = (e) => {
+    setHealthGoals2(e.target.value)
+  }
+
+  const handleHealthGoalChange3 = (e) => {
+    setHealthGoals3(e.target.value)
+  }
+
+  const handleHealthGoalChange4 = (e) => {
+    setHealthGoals4(e.target.value)
   }
 
   const createUser = async (e) => {
     e.preventDefault();
+    const healthGoals = []
+    healthGoals1===""? healthGoals : healthGoals.push(healthGoals1);
+    healthGoals2===""? healthGoals : healthGoals.push(healthGoals2);
+    healthGoals3===""? healthGoals : healthGoals.push(healthGoals3);
+    healthGoals4===""? healthGoals : healthGoals.push(healthGoals4);
     const createUser = await fetch(`${process.env.apiKey}/auth/user/register`, {
       method: "POST",
       headers: {
@@ -58,7 +109,7 @@ export default function DisplayUserSignUp() {
     } else window.alert("Error creating account");
   };
   return (
-    <div className=" bg-blue-50 flex flex-col justify-center py-6 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center py-6 sm:px-6 lg:px-8">
       <Head>
         <title>Sign up</title>
       </Head>
@@ -66,17 +117,17 @@ export default function DisplayUserSignUp() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* <img className="mx-auto h-12 w-auto" src="/logo.svg" alt="Logo" /> */}
         <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
-          Create a new account
+          Tell us more about you!
         </h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="py-8 px-4">
           <form className="space-y-6" action="#" method="POST">
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-400">
+                className="block text-sm font-medium">
                 Username
               </label>
               <div className="mt-1">
@@ -133,20 +184,89 @@ export default function DisplayUserSignUp() {
 
             <div>
               <label
-                htmlFor="dietary"
+                htmlFor="healthGoals"
                 className="block text-sm font-medium text-gray-400">
-                Dietary Preferences
+                How can Feed Your Physique help you?
               </label>
               <div className="mt-1">
                 <input
-                  id="dietaryPreference"
-                  name="dietaryPreference"
-                  type="dietaryPreference"
-                  value={dietaryPreference}
-                  onChange={handleDietaryChange}
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                  id="healthGoals1"
+                  name="healthGoals"
+                  type="healthGoals"
+                  value={healthGoals1}
+                  onChange={handleHealthGoalChange1}
+                  className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                  placeholder="Health Goals"
                 />
+                <input
+                  id="healthGoals2"
+                  name="healthGoals"
+                  type="healthGoals"
+                  value={healthGoals2}
+                  onChange={handleHealthGoalChange2}
+                  placeholder="Health Goals"
+                  className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                />
+                <input
+                  id="healthGoals3"
+                  name="healthGoals"
+                  type="healthGoals"
+                  value={healthGoals3}
+                  onChange={handleHealthGoalChange3}
+                  placeholder="Health Goals"
+                  className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                />
+                <input
+                  id="healthGoals4"
+                  name="healthGoals"
+                  type="healthGoals"
+                  value={healthGoals4}
+                  onChange={handleHealthGoalChange4}
+                  placeholder="Health Goals"
+                  className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="dietary"
+                className="block text-sm font-medium text-gray-400">
+                Select One of the following
+              </label>
+              <div className="mt-1">
+                <button
+                  onClick={handleDietaryChangeVegetarian}
+                  required
+                  className={getButtonClass('Vegetarian')}
+                >
+                  Vegetarian
+                  </button>
+
+                  <button
+                  onClick={handleDietaryChangeVegan}
+                  required
+                  className={getButtonClass('Vegan')}
+                >
+                  Vegan
+                  </button>
+
+                  <button
+                  onClick={handleDietaryChangePescatarian}
+                  required
+                  className={getButtonClass('pescatarian')}
+                >
+                  Pescatarian
+                  </button>
+
+                  <button
+                  onClick={handleDietaryChangeNothing}
+                  required
+                  className={getButtonClass('nothing')}
+                >
+                  No Restrictions
+                  </button>
+                  {dietaryPreference===null? <></>: <h1></h1>}
               </div>
             </div>
 
@@ -163,26 +283,6 @@ export default function DisplayUserSignUp() {
                   type="allergies"
                   value={allergy}
                   onChange={handleAllergyChange}
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="healthGoals"
-                className="block text-sm font-medium text-gray-400">
-                Health Goals
-              </label>
-              <div className="mt-1">
-                <input
-                  id="healthGoals"
-                  name="healthGoals"
-                  type="healthGoals"
-                  value={healthGoals}
-                  onChange={handleHealthGoalChange}
-                  required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                 />
               </div>

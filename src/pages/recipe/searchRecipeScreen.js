@@ -30,11 +30,8 @@ export default function RecipeScreen() {
     }
   };
   return (
-    <div className=" bg-green-800 flex flex-col justify-center py-6 sm:px-6 pg:px-8">
+    <div className="flex flex-col justify-center py-6 sm:px-6 pg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-blue-50">
-          Search for Recipe
-        </h2>
       </div>
       <div className="mt-8">
         <div className="mt-1 flex flex-row">
@@ -42,9 +39,10 @@ export default function RecipeScreen() {
             id="recipeSearch"
             name="recipeSearch"
             type="recipeSearch"
+            placeholder="Search"
             value={search}
             onChange={handleSearchChange}
-            className="appearance-none block w-full px-5 py-2 border"
+            className="appearance-none block w-full px-5 py-2 border rounded border-2 border-grey-400"
           />
           <div className="flex pl-4">
             <button
@@ -55,7 +53,7 @@ export default function RecipeScreen() {
           </div>
         </div>
 
-        <div className="p-4">
+        <div className="my-2">
           {!initial && !searchResult && (
             <h1>
               No recipes found with that query. Please try again or enter a
@@ -63,12 +61,17 @@ export default function RecipeScreen() {
             </h1>
           )}
           {!initial && searchResult && (
-            <div className="flex flex-col bg-white p-2">
+            <div className="flex flex-col bg-white">
               {searchResult.map((recipe) => (
                 <Link
                   key={recipe._id}
                   href={`recipeScreen?recipeId=${recipe._id}`}>
-                  <RecipeSearch name={recipe.name} />
+                  <RecipeSearch 
+                  name={recipe.name}
+                  image = {recipe.image_url}
+                  tags = {recipe.tags}
+                  description = {recipe.description} 
+                  />
                 </Link>
               ))}
             </div>

@@ -33,6 +33,7 @@ const RecipeScreen = () => {
             <img
               className="items-center justify-center"
               src={recipe.image_url}
+              alt="Recipe image"
             />
           </div>
         </div>
@@ -41,7 +42,7 @@ const RecipeScreen = () => {
           <div className="flex flex-wrap">
             <h2 className="p-2 m-2 font-bold">Tags</h2>
             {recipe.tags.map((ele) => (
-              <h4 className="p-2 m-2 border-2 border-grey-400 rounded font-semibold">
+              <h4 className="p-2 m-2 border-2 border-grey-400 rounded font-semibold" key={Math.random()}>
                 {ele}
               </h4>
             ))}
@@ -66,12 +67,12 @@ const RecipeScreen = () => {
 
           <div className="flex flex-col p-2 m-2">
             <h1 className="font-bold text-xl underline mb-2">Ingredients</h1>
-            {recipe.ingredients.map((ele)=> <h4 className="mb-2 font-semibold">{ele}</h4>)}
+            {recipe.ingredients.map((ele)=> <h4 className="mb-2 font-semibold" key={Math.random()}>{ele}</h4>)}
           </div>
 
           <div className="flex flex-col p-2 m-2">
             <h1 className="font-bold text-xl underline mb-2">Steps</h1>
-            {recipe.steps.map((ele, i)=> <h4 className="mb-2 font-semibold">{`${i+1}: ${ele}`}</h4>)}
+            {recipe.steps.map((ele, i)=> <h4 className="mb-2 font-semibold" key={Math.random()}>{`${i+1}: ${ele}`}</h4>)}
           </div>
 
         </div>

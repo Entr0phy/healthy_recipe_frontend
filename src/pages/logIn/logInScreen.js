@@ -40,7 +40,7 @@ export default function DisplayUserLogIn() {
     } else window.alert("Invalid");
   };
   return (
-    <div className=" bg-blue-50 flex flex-col justify-center py-6 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center py-6 sm:px-6 lg:px-8">
       <Head>
         <title>Log in</title>
       </Head>
@@ -53,12 +53,12 @@ export default function DisplayUserLogIn() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-teal-600 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" action="#" method="POST">
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-400"
+                className="block text-sm font-medium"
               >
                 Username
               </label>
@@ -77,7 +77,7 @@ export default function DisplayUserLogIn() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-400"
+                className="block text-sm font-medium"
               >
                 Password
               </label>
@@ -105,7 +105,7 @@ export default function DisplayUserLogIn() {
                 />
                 <label
                   htmlFor="remember_me"
-                  className="ml-2 block text-sm text-gray-400"
+                  className="ml-2 block text-sm font-medium"
                 >
                   Remember me
                 </label>
