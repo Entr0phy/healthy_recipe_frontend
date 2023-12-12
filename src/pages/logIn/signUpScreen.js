@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Allergies from "../userProfile/userProfileComponents/allergies";
 
 export default function DisplayUserSignUp() {
   const [username, setUsername] = useState("");
@@ -61,8 +62,16 @@ export default function DisplayUserSignUp() {
     setDietaryPreference(['']);
   };
 
-  const handleAllergyChange = (e) => {
-    setAllergy(e.target.value)
+  const pushToAllergyArray = (val) => { 
+    setAllergy(current => [...(new Set([...current , val]))])
+  }
+
+  const removeFromAllergyArray = (val) => {
+    console.log(allergy);
+    console.log(val);
+    setAllergy(current => { 
+      return current.filter(allergies => allergies !== val)
+    })
   }
 
   const handleHealthGoalChange1 = (e) => {
@@ -146,7 +155,7 @@ export default function DisplayUserSignUp() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-400">
+                className="block text-sm font-medium">
                 Email address
               </label>
               <div className="mt-1">
@@ -166,7 +175,7 @@ export default function DisplayUserSignUp() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-400">
+                className="block text-sm font-medium">
                 Password
               </label>
               <div className="mt-1">
@@ -185,7 +194,7 @@ export default function DisplayUserSignUp() {
             <div>
               <label
                 htmlFor="healthGoals"
-                className="block text-sm font-medium text-gray-400">
+                className="block text-sm font-medium">
                 How can Feed Your Physique help you?
               </label>
               <div className="mt-1">
@@ -231,7 +240,7 @@ export default function DisplayUserSignUp() {
             <div>
               <label
                 htmlFor="dietary"
-                className="block text-sm font-medium text-gray-400">
+                className="block text-sm font-medium">
                 Select One of the following
               </label>
               <div className="mt-1">
@@ -273,18 +282,15 @@ export default function DisplayUserSignUp() {
             <div>
               <label
                 htmlFor="allergies"
-                className="block text-sm font-medium text-gray-400">
-                Allergies
+                className="block text-l font-medium">
+                Do let us know what you can't or prefer not to eat
               </label>
               <div className="mt-1">
-                <input
-                  id="allergies"
-                  name="allergies"
-                  type="allergies"
-                  value={allergy}
-                  onChange={handleAllergyChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-                />
+               <Allergies
+               parentAllergy = {allergy}
+               setParentAllergy = {pushToAllergyArray}
+               removeParentAllergy = {removeFromAllergyArray} 
+               />
               </div>
             </div>
 
