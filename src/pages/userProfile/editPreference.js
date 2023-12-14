@@ -8,7 +8,7 @@ const UserScreen = () => {
   const [currentUser] = useContext(Context);
   const router = useRouter();
   useEffect(() => {
-    const username = currentUser.username;
+    const username = JSON.parse(sessionStorage.getItem('userId')).username;
 
     const fetchData = async () => {
       const data = await fetch(
@@ -19,7 +19,7 @@ const UserScreen = () => {
     };
 
     fetchData();
-  }, [currentUser.username]);
+  }, []);
 
   const homePage = () => {
     router.push("./userHome");
@@ -28,6 +28,15 @@ const UserScreen = () => {
   const dietaryPage = () => {
     router.push('./editPreference/dietaryPreference')
   }
+
+  const allergiesPage = () => {
+    router.push('./editPreference/editAllergies')
+  }
+
+  const healthGoalsPage = () => {
+    router.push('./editPreference/editHealthGoals')
+  }
+
   return (
     <div>
       <h1 className="text-center p-2 font-semibold text-xl">{`${currentUser.username} Edit Preference`}</h1>
@@ -44,11 +53,13 @@ const UserScreen = () => {
           <EditPreferenceCard
             title="Allergies"
             userDetails={userInfo.allergies}
+            redirect = {allergiesPage}
           />
 
           <EditPreferenceCard
             title="Health Goals"
             userDetails={userInfo.health_goals}
+            redirect={healthGoalsPage}
           />
         </div>
       )}
