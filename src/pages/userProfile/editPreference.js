@@ -36,7 +36,7 @@ const UserScreen = () => {
   const healthGoalsPage = () => {
     router.push('./editPreference/editHealthGoals')
   }
-
+  
   return (
     <div>
       <h1 className="text-center p-2 font-semibold text-xl">{`${currentUser.username} Edit Preference`}</h1>
