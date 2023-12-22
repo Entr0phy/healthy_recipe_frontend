@@ -16,7 +16,7 @@ const EditHealthGoals = () => {
       );
       const json = await data.json();
       setUserInfo(json);
-      json.health_goals.map((item, i) => {
+      json.health_goals?.map((item, i) => {
         switch (i) {
           case 0:
             setHealthGoals1(item);
@@ -104,7 +104,7 @@ const EditHealthGoals = () => {
             handleHealthGoalChange4={handleHealthGoalChange4}
           />
 
-          <button className="m-2 p-2 bg-teal-200 rounded text-semibold border-2 border-grey-400" onClick={saveHealthGoals}>Update Health Goals</button>
+          <button className="m-2 p-2 bg-zinc-100 rounded text-semibold border-2 border-grey-400" onClick={saveHealthGoals}>Update Health Goals</button>
         </>
       )}
     </div>

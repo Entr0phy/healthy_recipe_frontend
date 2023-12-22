@@ -88,7 +88,7 @@ const DietaryPreference = () => {
 
           <div className="text-center">
             <button
-              className="m-2 p-2 border-2 rounded bg-teal-400 font-semibold borer-grey-400"
+              className="m-2 p-2 border-2 rounded bg-zinc-100 font-semibold borer-grey-400"
               onClick={updatePreferences}>
               Confirm Change
             </button>

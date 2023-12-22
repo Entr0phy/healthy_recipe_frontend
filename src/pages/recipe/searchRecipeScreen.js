@@ -31,8 +31,7 @@ export default function RecipeScreen() {
   };
   return (
     <div className="flex flex-col justify-center py-6 sm:px-6 pg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-      </div>
+      <div className="sm:mx-auto sm:w-full sm:max-w-md"></div>
       <div className="mt-8">
         <div className="mt-1 flex flex-row">
           <input
@@ -42,12 +41,20 @@ export default function RecipeScreen() {
             placeholder="Search"
             value={search}
             onChange={handleSearchChange}
-            className="appearance-none block w-full px-5 py-2 border rounded border-2 border-grey-400"
+            className="appearance-none block w-full px-5 py-2 border rounded-full border-2 border-grey-400"
           />
           <div className="flex pl-4">
+            <button className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2">
+              Filter
+            </button>
+
+            <button className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2">
+              Sort
+            </button>
+
             <button
               onClick={recipeSearch}
-              className="bg-white p-2 rounded-full font-bold text-slate-700">
+              className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2">
               Search
             </button>
           </div>
@@ -62,15 +69,15 @@ export default function RecipeScreen() {
           )}
           {!initial && searchResult && (
             <div className="flex flex-col bg-white">
-              {searchResult.map((recipe) => (
+              {searchResult?.map((recipe) => (
                 <Link
                   key={recipe._id}
                   href={`recipeScreen?recipeId=${recipe._id}`}>
-                  <RecipeSearch 
-                  name={recipe.name}
-                  image = {recipe.image_url}
-                  tags = {recipe.tags}
-                  description = {recipe.description} 
+                  <RecipeSearch
+                    name={recipe.name}
+                    image={recipe.image_url}
+                    tags={recipe.tags}
+                    description={recipe.description}
                   />
                 </Link>
               ))}

@@ -38,7 +38,6 @@ const RecipeScreen = () => {
     } else window.alert("Error, Please try again");
   }
 
-  const userLoggedIn = sessionStorage.getItem("userId") !== null
   if (!recipe)
     return (
       <>
@@ -55,7 +54,7 @@ const RecipeScreen = () => {
         <div className=" mx-4">
           <div className="flex flex-wrap">
             <h2 className="mx-2 font-bold">Tags</h2>
-            {recipe.tags.map((ele) => (
+            {recipe?.tags?.map((ele) => (
               <h4
                 className="p-2 mx-2 border-2 border-grey-400 rounded font-semibold"
                 key={Math.random()}>
@@ -107,14 +106,14 @@ const RecipeScreen = () => {
           </div>
 
           <div className="flex flex-col p-2 m-2">
-            {userLoggedIn && 
+            {sessionStorage.getItem("userId") !== null && 
             <div className="flex flex-wrap">
               <h1 className="font-bold text-xl underline mb-2">Ingredients</h1>
               <button className="p-1 border-2 border-grey-200 rounded mx-6 bg-gray-600 text-white" onClick={addToCart}>Add To Cart</button>
             </div>
             }
             
-            {recipe.ingredients.map((ele) => (
+            {recipe?.ingredients?.map((ele) => (
               <h4 className="mb-2 font-semibold" key={Math.random()}>
                 {`${ele.quantity} ${ele.unitOfMeasure} ${ele.ingredientName}`}
               </h4>
@@ -123,7 +122,7 @@ const RecipeScreen = () => {
 
           <div className="flex flex-col p-2 m-2">
             <h1 className="font-bold text-xl underline mb-2">Steps</h1>
-            {recipe.steps.map((ele, i) => (
+            {recipe?.steps?.map((ele, i) => (
               <h4 className="mb-2 font-semibold" key={Math.random()}>{`${
                 i + 1
               }: ${ele}`}</h4>
@@ -132,7 +131,7 @@ const RecipeScreen = () => {
 
           <Comment
             comments={recipe.comments}
-            user={userLoggedIn ? JSON.parse(sessionStorage.getItem("userId"))._id : null}
+            user={sessionStorage.getItem("userId") !== null ? JSON.parse(sessionStorage.getItem("userId"))._id : null}
             recipeId={recipe._id}
           />
         </div>

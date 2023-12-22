@@ -183,7 +183,7 @@ const Comment = (props) => {
         )}
         <h1 className="font-bold my-2 text-xl">Top Comment</h1>
         <div className="flex flex-col">
-          {props.comments.map((ele) => (
+          {props?.comments?.map((ele) => (
             <div
               key={ele._id}
               className="border-2 p-2 border-grey-200 rounded m-2">

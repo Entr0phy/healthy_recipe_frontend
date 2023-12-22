@@ -29,22 +29,19 @@ export default function DisplayUserSignUp() {
     setEmail(e.target.value);
   };
 
-  const handleDietaryChangeVegetarian = (e) => {
+  const handleDietaryChangeVegetarian = () => {
     setDietaryPreference(["vegetarian"]);
   };
 
-  const handleDietaryChangeVegan = (e) => {
-    
+  const handleDietaryChangeVegan = () => {
     setDietaryPreference(["vegan"]);
   };
 
-  const handleDietaryChangePescatarian = (e) => {
-    
+  const handleDietaryChangePescatarian = () => {
     setDietaryPreference(["pescatarian"]);
   };
 
-  const handleDietaryChangeNothing = (e) => {
-
+  const handleDietaryChangeNothing = () => {
     setDietaryPreference(["None"]);
   };
 
@@ -194,11 +191,10 @@ export default function DisplayUserSignUp() {
               handleDietaryChangeNothing={handleDietaryChangeNothing}
               dietaryPreference={dietaryPreference}
             />
-            <h1>{dietaryPreference}</h1>
-            <h1>{healthGoals1}</h1>
+    
             <div>
               <label htmlFor="allergies" className="block text-l font-medium">
-                Do let us know what you can't or prefer not to eat
+                Do let us know what you can&apost or prefer not to eat
               </label>
               <div className="mt-1">
                 <Allergies

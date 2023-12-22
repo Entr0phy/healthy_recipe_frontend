@@ -69,7 +69,7 @@ const EditAllergies = () => {
             />
           </div>
 
-          <button className="m-2 p-2 bg-teal-200 font-semibold rounded border-2 border-grey-400" onClick={saveAllergy}>Save Allergies</button>
+          <button className="m-2 p-2 bg-zinc-100 font-semibold rounded border-2 border-grey-400" onClick={saveAllergy}>Save Allergies</button>
         </>
       )}
     </div>

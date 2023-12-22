@@ -7,8 +7,8 @@ const RecipeSearch = (props) => {
             </div>
             <div className="flex flex-col ml-2">
                 <div className="flex flex-wrap">
-                {props.tags.map((ele)=>
-                    <h4 className="m-2 font-semibold p-2 border-2 rounded">{ele}</h4>
+                {props?.tags?.map((ele)=>
+                    <h4 className="m-2 font-semibold p-2 border-2 rounded" key={Math.random()}>{ele}</h4>
                 )}
                 </div>
                 <h1 className="text-2xl font-bold m-2">{props.name}</h1>

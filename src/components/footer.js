@@ -8,7 +8,7 @@ function Footer() {
       <div className={styles.container}>
         <div className={styles.columns}>
           <div className={styles.column}>
-            <h4 className="-semibold">About Healthy Recipe</h4>
+            <h4 className="-semibold">About Feed Your Physique</h4>
             <ul>
               <li>
                 {" "}
@@ -78,7 +78,7 @@ function Footer() {
         </div>
         <div className={styles.logo}>
           <p className="text-gray-400 text-sm">
-            © 2023 Healthy Recipe Site. All rights reserved.
+            © 2023 Feed Your Physique Site. All rights reserved.
           </p>{" "}
         </div>
       </div>

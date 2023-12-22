@@ -26,7 +26,7 @@ const Allergies = (prop) => {
 
     if (allergy.status === 200) {
       let data = await allergy.json();
-      if (data.allergy.length > 0) setSearchAllergy(data.allergy);
+      if (data?.allergy?.length > 0) setSearchAllergy(data.allergy);
       else setSearchAllergy(false);
     } else {
       window.alert("Error, please try again");
@@ -45,7 +45,7 @@ const Allergies = (prop) => {
         />
 
         <button
-          className="my-1 bg-teal-400 rounded p-1 font-semibold"
+          className="my-1 bg-zinc-100 rounded p-1 font-semibold"
           onClick={searchAllergyCall}>
           Search
         </button>
@@ -56,7 +56,7 @@ const Allergies = (prop) => {
         {!initial && searchAllergy && (
           <>
             <label className="text-sm m-2">Search Allergies</label>
-            {searchAllergy.map((ele) => (
+            {searchAllergy?.map((ele) => (
               <h1 key={Math.random()} className="m-2 p-1 border-grey-400 border-2 rounded font-semibold text-sm" onClick={() => prop.setParentAllergy(ele.name)}>
                 {ele.name}
               </h1>
@@ -66,11 +66,11 @@ const Allergies = (prop) => {
       </div>
 
       <div className="flex flex-wrap">
-        {prop.parentAllergy.length > 0 &&
+        {prop?.parentAllergy?.length > 0 &&
           <>
            <label className="text-sm m-2">Selected Allergy</label>
-           {prop.parentAllergy.map((ele)=> (
-            <h1 className="m-2 p-1 border-2 border-grey-600 rounded text-sm font-semibold" onClick={() => prop.removeParentAllergy(ele)}>{ele}</h1>
+           {prop.parentAllergy?.map((ele)=> (
+            <h1 key={Math.random()} className="m-2 p-1 border-2 border-grey-600 rounded text-sm font-semibold" onClick={() => prop.removeParentAllergy(ele)}>{ele}</h1>
            ))}
           </>
         }

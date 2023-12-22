@@ -36,10 +36,10 @@ const UserScreen = () => {
   const healthGoalsPage = () => {
     router.push('./editPreference/editHealthGoals')
   }
-  
+
   return (
     <div>
-      <h1 className="text-center p-2 font-semibold text-xl">{`${currentUser.username} Edit Preference`}</h1>
+      <h1 className="text-center p-2 font-semibold text-xl">{`${currentUser?.username} Edit Preference`}</h1>
       {!userInfo ? (
         <h1>Loading</h1>
       ) : (
@@ -64,7 +64,7 @@ const UserScreen = () => {
         </div>
       )}
       <button
-        className="p-2 bg-teal-200 border-2 rounded font-semibold m-2"
+        className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2"
         onClick={homePage}>
         Back to Home Page
       </button>

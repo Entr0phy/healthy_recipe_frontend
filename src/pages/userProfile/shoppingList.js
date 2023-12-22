@@ -47,7 +47,7 @@ const ShoppingList = () => {
         <h1>Loading...</h1>
       ) : (
         <div className="m-2 p-2 border-grey-200">
-          {userInfo.grocery_list.map((ele) => (
+          {userInfo?.grocery_list?.map((ele) => (
             <div className="flex flex-wrap p-2 border-2 border-grey-200 rounded my-2" key={ele._id}>
               <h1 className="font-semibold text-decoration-line: underline text-xl">
                 {ele.quantity}

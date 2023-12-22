@@ -20,7 +20,7 @@ const UserHome = () => {
 
   return (
     <>
-        <h1 className="font-bold text-center m-2 text-xl">{`${currentUser.username} Profile Page`}</h1>
+        <h1 className="font-bold text-center m-2 text-xl">{`${currentUser?.username} Profile Page`}</h1>
       <div className="flex flex-col p-2 justify-center items-center">
         <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-auto rounded flex justify-between" onClick={manageAccount}>
           <h2>Manage Account</h2>
