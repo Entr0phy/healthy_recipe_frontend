@@ -39,7 +39,7 @@ function MobileNav({ open, setOpen }) {
           Recipe
         </Link>
         {currentUser && (
-          <a
+          <Link
             className="inline-block bg-zinc-100 hover:bg-zinc-400 text-black font-medium py-2 px-4 rounded-lg transition-colors duration-300 my-2"
             href="/feed/feedScreen"
             onClick={() =>
@@ -48,7 +48,7 @@ function MobileNav({ open, setOpen }) {
               }, 100)
             }>
             Feed
-          </a>
+          </Link>
         )}
 
         {!currentUser && (

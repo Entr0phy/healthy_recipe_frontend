@@ -1,8 +1,13 @@
 import React from "react";
-
+import { useRouter } from "next/router";
 const FeedRecipeCard = (props) => {
+    const router = useRouter();
+    const redirectToFreshRecipe = (val) => {
+        router.push(`/recipe/recipeScreen?recipeId=${val}`);
+      };
+
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4" onClick={()=> redirectToFreshRecipe(props.id)}>
       <div className="w-25 h-25 bg-gray-200 overflow-hidden">
         <img
           src={props.image}

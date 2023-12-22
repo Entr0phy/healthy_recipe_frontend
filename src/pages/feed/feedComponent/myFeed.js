@@ -31,11 +31,11 @@ const MyFeed = () => {
       ) : (
         featuredRecipes?.query.map((ele) => {
           return (
-            <div className="m-2">
+            <div className="m-2" key={ele._id}>
               <FeedRecipeCard
-                key={ele._id}
                 image={ele.image_url}
                 name={ele.name}
+                id={ele._id}
                 tag={ele.tags[0]}
                 rating={
                   ele.ratings === 0

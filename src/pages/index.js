@@ -153,7 +153,7 @@ export default function Home() {
                    
                   </div>
                   <h3 className="font-semibold text-lg mb-4">{recipe.name}</h3>
-                  <button className="text-indigo-600 hover:text-indigo-500 text-sm font-semibold" onClick={()=> redirectToFreshRecipe}>
+                  <button className="text-indigo-600 hover:text-indigo-500 text-sm font-semibold" onClick={()=> redirectToFreshRecipe(recipe._id)}>
                     Read More
                   </button>
                 </div>
