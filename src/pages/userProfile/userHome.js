@@ -18,6 +18,14 @@ const UserHome = () => {
     router.push('./shoppingList')
   }
 
+  const myReviewPage = () => {
+    router.push('./myReviews')
+  }
+
+  const savedRecipesPage = () => {
+    router.push('./savedRecipes')
+  }
+
   return (
     <>
         <h1 className="font-bold text-center m-2 text-xl">{`${currentUser?.username} Profile Page`}</h1>
@@ -37,7 +45,7 @@ const UserHome = () => {
           <h2>{">"}</h2>
         </div>
 
-        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between">
+        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between" onClick={myReviewPage}>
           <h2>My Reviews</h2>
           <h2>{">"}</h2>
         </div>
@@ -47,7 +55,7 @@ const UserHome = () => {
           <h2>{">"}</h2>
         </div>
 
-        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between">
+        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between" onClick={savedRecipesPage}>
           <h2>Saved Recipes</h2>
           <h2>{">"}</h2>
         </div>

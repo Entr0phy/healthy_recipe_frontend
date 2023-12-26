@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Comment from "./recipeComponent/comment";
 import { CiStar } from "react-icons/ci";
+import Favorites from "./recipeComponent/favorites";
 
 const RecipeScreen = () => {
   const router = useRouter();
@@ -21,22 +22,25 @@ const RecipeScreen = () => {
   }, [router.isReady, router.query.recipeId]);
 
   const addToCart = async () => {
-    const addToCart = await fetch(`${process.env.apiKey}/auth/user/addToGroceryList`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: JSON.parse(sessionStorage.getItem("userId"))._id,
-        groceryItems: recipe.ingredients
-      }),
-    })
+    const addToCart = await fetch(
+      `${process.env.apiKey}/auth/user/addToGroceryList`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: JSON.parse(sessionStorage.getItem("userId"))._id,
+          groceryItems: recipe.ingredients,
+        }),
+      }
+    );
 
     if (addToCart.status === 200) {
       window.alert("Added To Cart");
     } else window.alert("Error, Please try again");
-  }
+  };
 
   if (!recipe)
     return (
@@ -64,8 +68,14 @@ const RecipeScreen = () => {
           </div>
 
           <div className="mx-2 my-2 flex flex-wrap">
-              <h1 className="font-bold text-xl">{recipe.ratings === 0 ? "No Ratings" : (recipe.ratings/recipe.comments.length).toFixed(1)}</h1>
-              <CiStar size={35} color="#000000" className="mx-2"/>
+            <h1 className="font-bold text-xl">
+              {recipe.ratings === 0
+                ? "No Ratings"
+                : (recipe.ratings / recipe.comments.length).toFixed(1)}
+            </h1>
+            <CiStar size={35} color="#000000" className="mx-2" />
+
+            {sessionStorage.getItem("userId") !== null && <Favorites recipe={router.query.recipeId} />}
           </div>
 
           <div className="flex justify-center items-center">
@@ -106,13 +116,17 @@ const RecipeScreen = () => {
           </div>
 
           <div className="flex flex-col p-2 m-2">
-            {sessionStorage.getItem("userId") !== null && 
             <div className="flex flex-wrap">
               <h1 className="font-bold text-xl underline mb-2">Ingredients</h1>
-              <button className="p-1 border-2 border-grey-200 rounded mx-6 bg-gray-600 text-white" onClick={addToCart}>Add To Cart</button>
+              {sessionStorage.getItem("userId") !== null && (
+                <button
+                  className="p-1 border-2 border-grey-200 rounded mx-6 bg-gray-600 text-white"
+                  onClick={addToCart}>
+                  Add To Cart
+                </button>
+              )}
             </div>
-            }
-            
+
             {recipe?.ingredients?.map((ele) => (
               <h4 className="mb-2 font-semibold" key={Math.random()}>
                 {`${ele.quantity} ${ele.unitOfMeasure} ${ele.ingredientName}`}
@@ -131,7 +145,11 @@ const RecipeScreen = () => {
 
           <Comment
             comments={recipe.comments}
-            user={sessionStorage.getItem("userId") !== null ? JSON.parse(sessionStorage.getItem("userId"))._id : null}
+            user={
+              sessionStorage.getItem("userId") !== null
+                ? JSON.parse(sessionStorage.getItem("userId"))._id
+                : null
+            }
             recipeId={recipe._id}
           />
         </div>

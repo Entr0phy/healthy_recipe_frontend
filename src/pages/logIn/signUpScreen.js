@@ -194,7 +194,7 @@ export default function DisplayUserSignUp() {
     
             <div>
               <label htmlFor="allergies" className="block text-l font-medium">
-                Do let us know what you can&apost or prefer not to eat
+                Do let us know what you can&apos;t or prefer not to eat
               </label>
               <div className="mt-1">
                 <Allergies
