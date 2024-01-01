@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
+import { useRouter } from 'next/router'
 
 const Favorites = (props) => {
   const [userFavoriteRecipe, setUserFavoriteRecipe] = useState(null);
 
+  const router = useRouter();
   useEffect(() => {
     if (sessionStorage.getItem("userId") === null) return;
     const username = JSON.parse(sessionStorage.getItem("userId")).username;

@@ -81,6 +81,27 @@ const Comment = (props) => {
     } else window.alert("Error, Please try again");
   };
 
+  const deleteComment = async (commentId, commentRating) => {
+    const deleteComment = await fetch(`${process.env.apiKey}/recipe/deleteComment`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: props.recipeId,
+        commentId: commentId,
+        ratings: commentRating
+      }),
+    });
+
+    if(deleteComment.status === 200){
+      window.alert("Review Deleted")
+      location.reload();
+    }
+    else window.alert("Error")
+  }
+
   return (
     <div className="flex flex-col my-2">
       <h1 className="font-bold text-xl">Comments</h1>
@@ -196,6 +217,7 @@ const Comment = (props) => {
                   ))}
               </div>
               <h1 className="font-semibold">{ele.comments}</h1>
+              {props?.user === ele.name._id && <button className="p-2 bg-red-200 rounded" onClick={() => deleteComment(ele._id, ele.ratings)}>Delete Comment</button>}
             </div>
           ))}
         </div>

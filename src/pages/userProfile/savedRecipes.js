@@ -41,7 +41,8 @@ const MyReviews = () => {
       {!favorite_recipes ? (
         <h1>Loading...</h1>
       ) : (
-        <div className="mx-2 my-10 border-2 border-gray-600 p-2">
+        <div className="mx-2 my-10 border-2 border-gray-600 p-2 rounded">
+          {favorite_recipes.length === 0 && <h1 className="text-center font-semibold text-xl">No Saved Recipes</h1>}
           {favorite_recipes.map((ele) => (
             <>
             <Link
