@@ -1,46 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 
-const HealthGoals =(props) => {
-    return (
-        <div className="mt-1">
-        <input
-          id="healthGoals1"
-          name="healthGoals"
-          type="healthGoals"
-          value={props.healthGoals1}
-          onChange={props.handleHealthGoalChange1}
-          className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-          placeholder="Health Goals"
-        />
-        <input
-          id="healthGoals2"
-          name="healthGoals"
-          type="healthGoals"
-          value={props.healthGoals2}
-          onChange={props.handleHealthGoalChange2}
-          placeholder="Health Goals"
-          className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-        />
-        <input
-          id="healthGoals3"
-          name="healthGoals"
-          type="healthGoals"
-          value={props.healthGoals3}
-          onChange={props.handleHealthGoalChange3}
-          placeholder="Health Goals"
-          className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-        />
-        <input
-          id="healthGoals4"
-          name="healthGoals"
-          type="healthGoals"
-          value={props.healthGoals4}
-          onChange={props.handleHealthGoalChange4}
-          placeholder="Health Goals"
-          className="appearance-none block w-full px-3 py-2 my-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-        />
+const Dieraty = (props) => {
+  const [loseWeight, setLoseWeight] = useState(false);
+  const [gainMuscle, setGainMuscle] = useState(false);
+  const [lowerBloodPressure, setLowerBloodPressure] = useState(false);
+  const [reduceBloodSugar, setReduceBloodSugar] = useState(false);
+  const [lowerCholesterol, setLowerCholesterol] = useState(false);
+
+  const handleLoseWeightChange = (e) => {
+    e.preventDefault();
+    props.loseWeightChange();
+    setLoseWeight((prev)=> !prev)
+  };
+
+  const handleGainMuscle = (e) => {
+    e.preventDefault();
+    props.gainMuscle();
+    setGainMuscle((prev)=> !prev)
+  };
+
+  const handleLowerBloodPressure = (e) => {
+    e.preventDefault();
+    props.lowerBloodPressure()
+    setLowerBloodPressure((prev)=> !prev)
+  };
+
+  const handleReduceBloodSugar = (e) => {
+    e.preventDefault();
+    props.reduceBloodSugar();
+    setReduceBloodSugar((prev)=> !prev)
+  };
+
+  const handleLowerCholesterol = (e) => {
+    e.preventDefault();
+    props.lowerCholesterol();
+    setLowerCholesterol((prev)=> !prev)
+  };
+
+  const getButtonClass = (option) => {
+    let baseClass =
+      "appearance-none block w-full px-3 my-2 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm text-black text-start";
+    if (option === true) {
+      baseClass += " bg-gray-400"; // Add hover color if this diet is selected
+    } else {
+      baseClass += " hover:bg-gray-400"; // Otherwise, apply hover effect
+    }
+    return baseClass;
+  };
+
+  return (
+    <div>
+      <label htmlFor="dietary" className="block text-sm font-medium">
+        Select Your Health Goals
+      </label>
+      <div className="mt-1">
+        <button
+          onClick={handleLoseWeightChange}
+          required
+          className={getButtonClass(loseWeight)}>
+          Lose Weight
+        </button>
+
+        <button
+          onClick={handleGainMuscle}
+          required
+          className={getButtonClass(gainMuscle)}>
+          Gain Muscle
+        </button>
+
+        <button
+          onClick={handleLowerBloodPressure}
+          required
+          className={getButtonClass(lowerBloodPressure)}>
+          Lower blood pressure
+        </button>
+
+        <button
+          onClick={handleReduceBloodSugar}
+          required
+          className={getButtonClass(reduceBloodSugar)}>
+          Reduce Blood Sugar
+        </button>
+
+        <button
+          onClick={handleLowerCholesterol}
+          required
+          className={getButtonClass(lowerCholesterol)}>
+          Lower cholesterol
+        </button>
       </div>
-    )
-}
+    </div>
+  );
+};
 
-export default HealthGoals
+export default Dieraty;

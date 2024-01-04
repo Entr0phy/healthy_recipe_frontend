@@ -1,12 +1,30 @@
 import { useState } from "react";
 import RecipeSearch from "./recipeComponent/recipeSearch";
 import Link from "next/link";
+import RecipeTags from "./recipeComponent/recipeTags";
 export default function RecipeScreen() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState(false);
+  const [filter, setFilter] = useState([]);
+  const [filterButton, setFilterButton] = useState(false);
   const [initial, setInitial] = useState(true);
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
+  };
+
+  const addToTags = (tag) => {
+    filter?.indexOf(tag) === -1 ? setFilter((prev)=> [...prev, tag]) : filter
+  };
+
+  const removeTags = (e, tag) => {
+    e.preventDefault();
+    const removedTags = filter.filter((item) => item !== tag);
+    setFilter(removedTags);
+  };
+
+  const handleFilterButton = (e) => {
+    e.preventDefault();
+    setFilterButton((prev) => !prev);
   };
 
   const recipeSearch = async () => {
@@ -33,7 +51,7 @@ export default function RecipeScreen() {
     <div className="flex flex-col justify-center py-6 sm:px-6 pg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md"></div>
       <div className="mt-8">
-        <div className="mt-1 flex flex-row">
+        <div className="mt-1 flex flex-row my-2">
           <input
             id="recipeSearch"
             name="recipeSearch"
@@ -44,7 +62,9 @@ export default function RecipeScreen() {
             className="appearance-none block w-full px-5 py-2 border rounded-full border-2 border-grey-400"
           />
           <div className="flex pl-4">
-            <button className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2">
+            <button
+              className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2"
+              onClick={handleFilterButton}>
               Filter
             </button>
 
@@ -59,6 +79,30 @@ export default function RecipeScreen() {
             </button>
           </div>
         </div>
+
+        {filterButton && (
+          <div className="bg-gray-200 rounded p-2">
+            <h1 className="font-semibold">Selected Filters</h1>
+            {filter.map((ele) => (
+              <div key={Math.random()} className="flex place-content-between">
+                <p className="font-bold">{ele}</p>
+                <button
+                  className="text-red-600"
+                  onClick={(e) => {
+                    removeTags(e, ele);
+                  }}>
+                  Remove
+                </button>
+              </div>
+            ))}
+            {filter.length === 0 && (
+              <h1 className="font-bold text-red-600 my-2">No Filter Added</h1>
+            )}
+            <RecipeTags
+            addToTag = {addToTags}
+             />
+          </div>
+        )}
 
         <div className="my-2">
           {!initial && !searchResult && (

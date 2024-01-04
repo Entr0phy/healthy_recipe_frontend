@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import RecipeTags from "./recipeTags";
 
 const RecipeForm = (props) => {
   const [name, setName] = useState(props?.name ?? "");
@@ -20,8 +21,7 @@ const RecipeForm = (props) => {
       fat: 0,
     }
   );
-  const [tags, setTags] = useState(props?.steps ?? []);
-  const [addTags, setAddTags] = useState("");
+  const [tags, setTags] = useState(props?.tags ?? []);
   const [image, setImage] = useState(props?.image ?? "");
 
   const handleNameChange = (e) => {
@@ -91,11 +91,6 @@ const RecipeForm = (props) => {
     }));
   };
 
-  const handleAddTagsChange = (e) => {
-    e.preventDefault();
-    setAddTags(e.target.value);
-  };
-
   const handleImageChange = (e) => {
     e.preventDefault();
     setImage(e.target.value);
@@ -122,10 +117,8 @@ const RecipeForm = (props) => {
     setAddSteps("");
   };
 
-  const addToTags = (e) => {
-    e.preventDefault();
-    setTags((previousTags) => [...previousTags, addTags]);
-    setAddTags("");
+  const addToTags = (tag) => {
+    tags?.indexOf(tag) === -1 ? setTags((prev)=> [...prev, tag]) : tags
   };
 
   const removeIngredient = (e, ingredient) => {
@@ -142,7 +135,7 @@ const RecipeForm = (props) => {
 
   const removeTags = (e, tag) => {
     e.preventDefault();
-    const removedTags = steps.filter((item) => item !== tag);
+    const removedTags = tags.filter((item) => item !== tag);
     setTags(removedTags);
   };
 
@@ -473,19 +466,9 @@ const RecipeForm = (props) => {
                 )}
               </div>
 
-              <label className="block text-sm font-medium">New Tag</label>
-              <input
-                id="recipeStep"
-                name="recipeStep"
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
-                value={addTags}
-                onChange={handleAddTagsChange}
+              <RecipeTags
+              addToTag={addToTags} 
               />
-              <button
-                onClick={addToTags}
-                className="bg-gray-200 px-2 rounded my-2">
-                Add To Tags
-              </button>
             </div>
           </div>
 

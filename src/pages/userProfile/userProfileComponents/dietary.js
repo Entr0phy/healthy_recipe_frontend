@@ -31,9 +31,9 @@ const Dieraty = (props) => {
     let baseClass =
       "appearance-none block w-full px-3 my-2 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm text-black text-start";
     if (selectedDiet === diet) {
-      baseClass += " bg-zinc-100"; // Add hover color if this diet is selected
+      baseClass += " bg-gray-400"; // Add hover color if this diet is selected
     } else {
-      baseClass += " hover:bg-zinc-100"; // Otherwise, apply hover effect
+      baseClass += " hover:bg-gray-400"; // Otherwise, apply hover effect
     }
     return baseClass;
   };

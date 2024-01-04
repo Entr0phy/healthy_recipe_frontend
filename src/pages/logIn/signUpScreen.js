@@ -16,6 +16,7 @@ export default function DisplayUserSignUp() {
   const [healthGoals2, setHealthGoals2] = useState("");
   const [healthGoals3, setHealthGoals3] = useState("");
   const [healthGoals4, setHealthGoals4] = useState("");
+  const [healthGoals5, setHealthGoals5] = useState("");
   const router = useRouter();
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -55,20 +56,30 @@ export default function DisplayUserSignUp() {
     });
   };
 
-  const handleHealthGoalChange1 = (e) => {
-    setHealthGoals1(e.target.value);
+  const loseWeightChange = () => {
+    healthGoals1 === "" ? setHealthGoals1("Lose Weight") : setHealthGoals1("");
   };
 
-  const handleHealthGoalChange2 = (e) => {
-    setHealthGoals2(e.target.value);
+  const gainMuscle = () => {
+    healthGoals2 === "" ? setHealthGoals2("Gain Muscle") : setHealthGoals2("");
   };
 
-  const handleHealthGoalChange3 = (e) => {
-    setHealthGoals3(e.target.value);
+  const lowerBloodPressure = () => {
+    healthGoals3 === ""
+      ? setHealthGoals3("Lower Blood Pressure")
+      : setHealthGoals3("");
   };
 
-  const handleHealthGoalChange4 = (e) => {
-    setHealthGoals4(e.target.value);
+  const reduceBloodSugar = () => {
+    healthGoals4 === ""
+      ? setHealthGoals4("Reduce Blood Sugar")
+      : setHealthGoals4("");
+  };
+
+  const lowerCholesterol = () => {
+    healthGoals5 === ""
+      ? setHealthGoals5("Lower Cholesterol")
+      : setHealthGoals5("");
   };
 
   const createUser = async (e) => {
@@ -78,6 +89,7 @@ export default function DisplayUserSignUp() {
     healthGoals2 === "" ? healthGoals : healthGoals.push(healthGoals2);
     healthGoals3 === "" ? healthGoals : healthGoals.push(healthGoals3);
     healthGoals4 === "" ? healthGoals : healthGoals.push(healthGoals4);
+    healthGoals5 === "" ? healthGoals : healthGoals.push(healthGoals5);
     const createUser = await fetch(`${process.env.apiKey}/auth/user/register`, {
       method: "POST",
       headers: {
@@ -173,14 +185,11 @@ export default function DisplayUserSignUp() {
                 How can Feed Your Physique help you?
               </label>
               <HealthGoals
-                healthGoals1={healthGoals1}
-                handleHealthGoalChange1={handleHealthGoalChange1}
-                healthGoals2={healthGoals2}
-                handleHealthGoalChange2={handleHealthGoalChange2}
-                healthGoals3={healthGoals3}
-                handleHealthGoalChange3={handleHealthGoalChange3}
-                healthGoals4={healthGoals4}
-                handleHealthGoalChange4={handleHealthGoalChange4}
+                loseWeightChange={loseWeightChange}
+                gainMuscle={gainMuscle}
+                lowerBloodPressure={lowerBloodPressure}
+                reduceBloodSugar={reduceBloodSugar}
+                lowerCholesterol={lowerCholesterol}
               />
             </div>
 
@@ -191,7 +200,7 @@ export default function DisplayUserSignUp() {
               handleDietaryChangeNothing={handleDietaryChangeNothing}
               dietaryPreference={dietaryPreference}
             />
-    
+
             <div>
               <label htmlFor="allergies" className="block text-l font-medium">
                 Do let us know what you can&apos;t or prefer not to eat
