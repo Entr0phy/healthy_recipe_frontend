@@ -2,24 +2,36 @@ import { useState } from "react";
 import RecipeSearch from "./recipeComponent/recipeSearch";
 import Link from "next/link";
 import RecipeTags from "./recipeComponent/recipeTags";
+import RecipeSort from "./recipeComponent/recipeSort";
 export default function RecipeScreen() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState(false);
   const [filter, setFilter] = useState([]);
   const [filterButton, setFilterButton] = useState(false);
+  const [sortButton, setSortButton] = useState(false);
+  const [sort, setSort] = useState("");
   const [initial, setInitial] = useState(true);
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
 
   const addToTags = (tag) => {
-    filter?.indexOf(tag) === -1 ? setFilter((prev)=> [...prev, tag]) : filter
+    filter?.indexOf(tag) === -1 ? setFilter((prev) => [...prev, tag]) : filter;
   };
 
   const removeTags = (e, tag) => {
     e.preventDefault();
     const removedTags = filter.filter((item) => item !== tag);
     setFilter(removedTags);
+  };
+
+  const handleSortButton = (e) => {
+    e.preventDefault();
+    setSortButton((prev) => !prev);
+  };
+
+  const sortChange = (newSort) => {
+    sort === newSort ? setSort("") : setSort(newSort);
   };
 
   const handleFilterButton = (e) => {
@@ -36,7 +48,7 @@ export default function RecipeScreen() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ search: search }),
+      body: JSON.stringify({ search: search, tags: filter, sort: sort }),
     });
 
     if (recipe.status === 200) {
@@ -68,7 +80,9 @@ export default function RecipeScreen() {
               Filter
             </button>
 
-            <button className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2">
+            <button
+              className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2"
+              onClick={handleSortButton}>
               Sort
             </button>
 
@@ -98,9 +112,14 @@ export default function RecipeScreen() {
             {filter.length === 0 && (
               <h1 className="font-bold text-red-600 my-2">No Filter Added</h1>
             )}
-            <RecipeTags
-            addToTag = {addToTags}
-             />
+            <RecipeTags addToTag={addToTags} />
+          </div>
+        )}
+
+        {sortButton && (
+          <div className="bg-gray-200 rounded p-2 my-2">
+            <h1 className="font-semibold">Current Sort: {sort}</h1>
+            <RecipeSort filter={sortChange} />
           </div>
         )}
 
