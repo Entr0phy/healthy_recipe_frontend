@@ -104,7 +104,6 @@ const Comment = (props) => {
 
   return (
     <div className="flex flex-col my-2">
-      <h1 className="font-bold text-xl">Comments</h1>
 
       <div className="p-2 border-2 border-grey-400 rounded">
         {props.user && (

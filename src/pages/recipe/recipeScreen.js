@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import Comment from "./recipeComponent/comment";
 import { CiStar } from "react-icons/ci";
 import Favorites from "./recipeComponent/favorites";
+import Question from "./recipeComponent/question";
 
 const RecipeScreen = () => {
   const router = useRouter();
   const [recipe, setRecipe] = useState(null);
+  const [questionToggle, setQuestionToggle] = useState(false);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -75,7 +77,9 @@ const RecipeScreen = () => {
             </h1>
             <CiStar size={35} color="#000000" className="mx-2" />
 
-            {sessionStorage.getItem("userId") !== null && <Favorites recipe={router.query.recipeId} />}
+            {sessionStorage.getItem("userId") !== null && (
+              <Favorites recipe={router.query.recipeId} />
+            )}
           </div>
 
           <div className="flex justify-center items-center">
@@ -143,15 +147,49 @@ const RecipeScreen = () => {
             ))}
           </div>
 
-          <Comment
-            comments={recipe.comments}
-            user={
-              sessionStorage.getItem("userId") !== null
-                ? JSON.parse(sessionStorage.getItem("userId"))._id
-                : null
-            }
-            recipeId={recipe._id}
-          />
+          <div className="mx-4">
+            <h1 className="font-bold text-xl">Questions And Comments</h1>
+            <div className="flex divide-x divide-gray-200">
+              <button
+                className={`flex-1 text-center font-semibold text-xl ${
+                  !questionToggle ? "bg-gray-400" : ""
+                }`}
+                onClick={() => setQuestionToggle(false)}>
+                Reviews
+              </button>
+              <button
+                className={`flex-1 text-center font-semibold text-xl ${
+                  questionToggle ? "bg-gray-400" : ""
+                }`}
+                onClick={() => setQuestionToggle(true)}>
+                Questions
+              </button>
+            </div>
+          </div>
+
+          {!questionToggle ? (
+            <Comment
+              comments={recipe.comments}
+              user={
+                sessionStorage.getItem("userId") !== null
+                  ? JSON.parse(sessionStorage.getItem("userId"))._id
+                  : null
+              }
+              recipeId={recipe._id}
+            />
+          ) : (
+            <h1>
+              <Question
+                user={
+                  sessionStorage.getItem("userId") !== null
+                    ? JSON.parse(sessionStorage.getItem("userId"))._id
+                    : null
+                }
+                recipeId={recipe._id}
+                questions={recipe.questions}
+              />
+            </h1>
+          )}
         </div>
       </div>
     );

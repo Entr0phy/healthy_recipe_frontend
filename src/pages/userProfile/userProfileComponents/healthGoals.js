@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const Dieraty = (props) => {
-  const [loseWeight, setLoseWeight] = useState(false);
-  const [gainMuscle, setGainMuscle] = useState(false);
-  const [lowerBloodPressure, setLowerBloodPressure] = useState(false);
-  const [reduceBloodSugar, setReduceBloodSugar] = useState(false);
-  const [lowerCholesterol, setLowerCholesterol] = useState(false);
+  const [loseWeight, setLoseWeight] = useState(props.loseWeightState ?? false);
+  const [gainMuscle, setGainMuscle] = useState(props.gainMuscleState ?? false);
+  const [lowerBloodPressure, setLowerBloodPressure] = useState(props.lowerBloodPressureState ?? false);
+  const [reduceBloodSugar, setReduceBloodSugar] = useState(props.reduceBloodSugarState ?? false);
+  const [lowerCholesterol, setLowerCholesterol] = useState(props.lowerCholesterolState ?? false);
 
   const handleLoseWeightChange = (e) => {
     e.preventDefault();

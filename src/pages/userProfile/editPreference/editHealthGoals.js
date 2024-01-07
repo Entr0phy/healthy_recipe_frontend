@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import HealthGoals from "../userProfileComponents/healthGoals";
 const EditHealthGoals = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const [healthGoals1, setHealthGoals1] = useState("");
-  const [healthGoals2, setHealthGoals2] = useState("");
-  const [healthGoals3, setHealthGoals3] = useState("");
-  const [healthGoals4, setHealthGoals4] = useState("");
+  const [healthGoals1, setHealthGoals1] = useState(false);
+  const [healthGoals2, setHealthGoals2] = useState(false);
+  const [healthGoals3, setHealthGoals3] = useState(false);
+  const [healthGoals4, setHealthGoals4] = useState(false);
+  const [healthGoals5, setHealthGoals5] = useState(false);
   const router = useRouter();
   useEffect(() => {
     const username = JSON.parse(sessionStorage.getItem("userId")).username;
@@ -17,20 +18,21 @@ const EditHealthGoals = () => {
       const json = await data.json();
       setUserInfo(json);
       json.health_goals?.map((item, i) => {
-        switch (i) {
-          case 0:
-            setHealthGoals1(item);
+        switch (item) {
+          case "Lose Weight":
+            setHealthGoals1(true);
             break;
-          case 1:
-            setHealthGoals2(item);
+          case "Gain Muscle":
+            setHealthGoals2(true);
             break;
-          case 2:
-            setHealthGoals3(item);
+          case "Lower Blood Pressure":
+            setHealthGoals3(true);
             break;
-          case 3:
-            setHealthGoals4(item);
+          case "Reduce Blood Sugar":
+            setHealthGoals4(true);
             break;
           default:
+            setHealthGoals5(true)
             break;
         }
       });
@@ -39,28 +41,39 @@ const EditHealthGoals = () => {
     fetchData();
   }, []);
 
-  const handleHealthGoalChange1 = (e) => {
-    setHealthGoals1(e.target.value);
+  const loseWeightChange = () => {
+    healthGoals1 === false ? setHealthGoals1(true) : setHealthGoals1(false);
   };
 
-  const handleHealthGoalChange2 = (e) => {
-    setHealthGoals2(e.target.value);
+  const gainMuscle = () => {
+    healthGoals2 === false ? setHealthGoals2(true) : setHealthGoals2(false);
   };
 
-  const handleHealthGoalChange3 = (e) => {
-    setHealthGoals3(e.target.value);
+  const lowerBloodPressure = () => {
+    healthGoals3 === false
+      ? setHealthGoals3(true)
+      : setHealthGoals3(false);
   };
 
-  const handleHealthGoalChange4 = (e) => {
-    setHealthGoals4(e.target.value);
+  const reduceBloodSugar = () => {
+    healthGoals4 === false
+      ? setHealthGoals4(true)
+      : setHealthGoals4(false);
+  };
+
+  const lowerCholesterol = () => {
+    healthGoals5 === false
+      ? setHealthGoals5(true)
+      : setHealthGoals5(false);
   };
 
   const saveHealthGoals = async() => {
     const healthGoals = [];
-    healthGoals1 === "" ? healthGoals : healthGoals.push(healthGoals1);
-    healthGoals2 === "" ? healthGoals : healthGoals.push(healthGoals2);
-    healthGoals3 === "" ? healthGoals : healthGoals.push(healthGoals3);
-    healthGoals4 === "" ? healthGoals : healthGoals.push(healthGoals4);
+    healthGoals1 === false ? healthGoals : healthGoals.push("Lose Weight");
+    healthGoals2 === false ? healthGoals : healthGoals.push("Gain Muscle");
+    healthGoals3 === false ? healthGoals : healthGoals.push("Lower Blood Pressure");
+    healthGoals4 === false ? healthGoals : healthGoals.push("Reduce Blood Sugar");
+    healthGoals5 === false ? healthGoals : healthGoals.push("Lower Cholesterol");
     const update = await fetch(
       `${process.env.apiKey}/auth/user/updateUserHealthGoals`,
       {
@@ -94,14 +107,16 @@ const EditHealthGoals = () => {
             Edit Health Goals
           </h1>
           <HealthGoals
-            healthGoals1={healthGoals1}
-            handleHealthGoalChange1={handleHealthGoalChange1}
-            healthGoals2={healthGoals2}
-            handleHealthGoalChange2={handleHealthGoalChange2}
-            healthGoals3={healthGoals3}
-            handleHealthGoalChange3={handleHealthGoalChange3}
-            healthGoals4={healthGoals4}
-            handleHealthGoalChange4={handleHealthGoalChange4}
+            loseWeightState={healthGoals1}
+            loseWeightChange={loseWeightChange}
+            gainMuscleState={healthGoals2}
+            gainMuscle={gainMuscle}
+            lowerBloodPressureState={healthGoals3}
+            lowerBloodPressure={lowerBloodPressure}
+            reduceBloodSugarState={healthGoals4}
+            reduceBloodSugar={reduceBloodSugar}
+            lowerCholesterolState = {healthGoals5}
+            lowerCholesterol= {lowerCholesterol}
           />
 
           <button className="m-2 p-2 bg-zinc-100 rounded text-semibold border-2 border-grey-400" onClick={saveHealthGoals}>Update Health Goals</button>

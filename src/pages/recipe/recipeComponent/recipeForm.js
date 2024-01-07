@@ -175,7 +175,8 @@ const RecipeForm = (props) => {
             prep_time: prepTime,
             nutritional_data: nutritionalData,
             tags: tags,
-            image_url: image
+            image_url: image,
+            verificationStatus: false
           }),
       }
     );
