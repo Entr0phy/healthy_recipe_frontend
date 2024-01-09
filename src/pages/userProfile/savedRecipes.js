@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PastComment from "./reviewComponent/pastComment";
 import Link from "next/link";
 import RecipeSearch from "../recipe/recipeComponent/recipeSearch";
 const MyReviews = () => {

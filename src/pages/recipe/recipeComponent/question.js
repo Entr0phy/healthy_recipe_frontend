@@ -25,7 +25,7 @@ const Question = (props) => {
         },
         body: JSON.stringify({
           id: props.recipeId,
-          questionName: props.user,
+          questionName: props.user._id,
           question: question,
         }),
       }
@@ -37,10 +37,34 @@ const Question = (props) => {
     } else window.alert("Error, Please try again");
   };
 
+  const addAnswer = async (questionId) => {
+    const addAnswer = await fetch(
+      `${process.env.apiKey}/recipe/postAnswer`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: props.recipeId,
+          answerName: props.user._id,
+          answer: answer,
+          recipeId: questionId
+        }),
+      }
+    );
+
+    if (addAnswer.status === 200) {
+      window.alert("Answer Added");
+      location.reload();
+    } else window.alert("Error, Please try again");
+  };
+
   return (
     <div className="flex flex-col my-2">
       <div className="p-2 border-2 border-gray-400 rounded">
-        {props.user && (
+        {props?.user?.userType === "User" && (
           <>
             <div className="w-full h-32">
               <textarea
@@ -76,8 +100,23 @@ const Question = (props) => {
                     <h1 className="font-bold">{ele.answerName?.username}</h1>
                     <h1 className="">{ele.answer}</h1>
                   </>
-                ) : (
+                ) : props.user.userType === "User" ? (
                   <h1>This Question Has yet to be answered yet</h1>
+                ) : (
+                  <>
+                    <textarea
+                      placeholder="Answer the Question"
+                      className="w-full h-full p-2 border-2"
+                      value={answer}
+                      onChange={handleAnswerChange}
+                    />
+
+                    <button
+                      className="p-2 border-2 border-grey-400 rounded bg-gray-600 text-white my-2"
+                      onClick={() => addAnswer(ele._id)}>
+                      Post Answer
+                    </button>
+                  </>
                 )}
               </div>
             </div>

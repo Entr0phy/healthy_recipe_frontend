@@ -9,6 +9,7 @@ const RecipeScreen = () => {
   const router = useRouter();
   const [recipe, setRecipe] = useState(null);
   const [questionToggle, setQuestionToggle] = useState(false);
+  const [servingSize, setServingSize] = useState(1);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -22,6 +23,14 @@ const RecipeScreen = () => {
         console.log(err);
       });
   }, [router.isReady, router.query.recipeId]);
+
+  const increase = () => {
+    setServingSize((prev)=> prev+1);
+  }
+
+  const decrease = () => {
+    setServingSize((prev)=> prev -1 <1 ? 1 : prev -1)
+  }
 
   const addToCart = async () => {
     const addToCart = await fetch(
@@ -82,6 +91,10 @@ const RecipeScreen = () => {
             )}
           </div>
 
+          <div className="m-2 font-semibold text-lg">
+            {recipe.verificationStatus ? <h1 className="text-green-600">Verified</h1> : <h1 className="text-red-600">Not Verified</h1>}
+          </div>
+
           <div className="flex justify-center items-center">
             <div className="overflow-hidden max-w-md m-2 border-2">
               <img
@@ -116,7 +129,9 @@ const RecipeScreen = () => {
           <div className="flex flex-wrap p-2">
             <h4 className="font-semibold m-2">{`PREP TIME: ${recipe.prep_time}`}</h4>
             <h4 className="font-semibold m-2">{`COOK TIME: ${recipe.cooking_time}`}</h4>
-            <h4 className="font-semibold m-2">{`SERVING: 1`}</h4>
+            <h4 className="font-semibold m-2">{`SERVING: ${servingSize}`} </h4>
+            <button className="m-1 p-0.5 bg-green-200 rounded" onClick={increase}>^</button>
+            <button className="m-1 p-1 bg-red-200 rounded" onClick={decrease}>v</button>
           </div>
 
           <div className="flex flex-col p-2 m-2">
@@ -133,7 +148,7 @@ const RecipeScreen = () => {
 
             {recipe?.ingredients?.map((ele) => (
               <h4 className="mb-2 font-semibold" key={Math.random()}>
-                {`${ele.quantity} ${ele.unitOfMeasure} ${ele.ingredientName}`}
+                {`${ele.quantity * servingSize} ${ele.unitOfMeasure} ${ele.ingredientName}`}
               </h4>
             ))}
           </div>
@@ -182,7 +197,7 @@ const RecipeScreen = () => {
               <Question
                 user={
                   sessionStorage.getItem("userId") !== null
-                    ? JSON.parse(sessionStorage.getItem("userId"))._id
+                    ? JSON.parse(sessionStorage.getItem("userId"))
                     : null
                 }
                 recipeId={recipe._id}
