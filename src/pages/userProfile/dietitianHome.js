@@ -15,6 +15,10 @@ const DietitianHome = () => {
         router.push('./qualifications')
     }
 
+    const dietitianRecipe = () => {
+        router.push('./dietitianRecipe')
+    }
+
     return(
         <>
         <h1 className="font-bold text-center m-2 text-xl">Welcome to your dietitian dashboard!</h1>
@@ -29,7 +33,7 @@ const DietitianHome = () => {
                 <h1>{">"}</h1>
             </div>
 
-            <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-auto rounded flex justify-between">
+            <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-auto rounded flex justify-between" onClick={dietitianRecipe}>
                 <h2>View My Recipes</h2>
                 <h1>{">"}</h1>
             </div>

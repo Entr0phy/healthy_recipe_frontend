@@ -37,9 +37,9 @@ const Qualifications = () => {
             </h1>
           ) : (
             currentUser?.qualifications.map((ele) => (
-              <div key={ele._id}>
-                <h1>{ele.qualifications}</h1>
-                <h1>{ele.dateObtained}</h1>
+              <div key={ele._id} className="flex justify-between">
+                <h1 className="m-2 font-semibold">{ele.qualifications}</h1>
+                <h1 className="m-2 font-bold">{ele.dateObtained}</h1>
               </div>
             ))
           )}
