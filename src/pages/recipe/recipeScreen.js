@@ -25,12 +25,12 @@ const RecipeScreen = () => {
   }, [router.isReady, router.query.recipeId]);
 
   const increase = () => {
-    setServingSize((prev)=> prev+1);
-  }
+    setServingSize((prev) => prev + 1);
+  };
 
   const decrease = () => {
-    setServingSize((prev)=> prev -1 <1 ? 1 : prev -1)
-  }
+    setServingSize((prev) => (prev - 1 < 1 ? 1 : prev - 1));
+  };
 
   const addToCart = async () => {
     const addToCart = await fetch(
@@ -43,7 +43,10 @@ const RecipeScreen = () => {
         },
         body: JSON.stringify({
           id: JSON.parse(sessionStorage.getItem("userId"))._id,
-          groceryItems: recipe.ingredients,
+          groceryItems: recipe.ingredients.map((item) => ({
+            ...item,
+            quantity: item.quantity * servingSize,
+          })),
         }),
       }
     );
@@ -91,8 +94,15 @@ const RecipeScreen = () => {
             )}
           </div>
 
-          <div className="m-2 font-semibold text-lg">
-            {recipe.verificationStatus ? <h1 className="text-green-600">Verified</h1> : <h1 className="text-red-600">Not Verified</h1>}
+          <div className="m-2 font-semibold text-lg flex flex-wrap">
+            {recipe.verificationStatus ? (
+              <h1 className="text-green-600">Verified</h1>
+            ) : (
+              <h1 className="text-red-600">Not Verified</h1>
+            )}
+            <h1 className="mx-2">
+              Submitted By: {recipe.submitted_by.username}
+            </h1>
           </div>
 
           <div className="flex justify-center items-center">
@@ -130,8 +140,14 @@ const RecipeScreen = () => {
             <h4 className="font-semibold m-2">{`PREP TIME: ${recipe.prep_time}`}</h4>
             <h4 className="font-semibold m-2">{`COOK TIME: ${recipe.cooking_time}`}</h4>
             <h4 className="font-semibold m-2">{`SERVING: ${servingSize}`} </h4>
-            <button className="m-1 p-0.5 bg-green-200 rounded" onClick={increase}>^</button>
-            <button className="m-1 p-1 bg-red-200 rounded" onClick={decrease}>v</button>
+            <button
+              className="m-1 p-0.5 bg-green-200 rounded"
+              onClick={increase}>
+              ^
+            </button>
+            <button className="m-1 p-1 bg-red-200 rounded" onClick={decrease}>
+              v
+            </button>
           </div>
 
           <div className="flex flex-col p-2 m-2">
@@ -148,7 +164,9 @@ const RecipeScreen = () => {
 
             {recipe?.ingredients?.map((ele) => (
               <h4 className="mb-2 font-semibold" key={Math.random()}>
-                {`${ele.quantity * servingSize} ${ele.unitOfMeasure} ${ele.ingredientName}`}
+                {`${ele.quantity * servingSize} ${ele.unitOfMeasure} ${
+                  ele.ingredientName
+                }`}
               </h4>
             ))}
           </div>
