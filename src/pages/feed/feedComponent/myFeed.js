@@ -6,8 +6,6 @@ const MyFeed = () => {
   const [featuredRecipes, setFeaturedRecipes] = useState(null);
   const router = useRouter();
 
-  const createNew = () => router.push("/recipe/createRecipe");
-
   useEffect(() => {
     const id = JSON.parse(sessionStorage.getItem("userId"))._id;
     const fetchFeaturedRecipe = async () => {
@@ -34,10 +32,6 @@ const MyFeed = () => {
         <h1>Loading...</h1>
       ) : (
         <>
-          <button className="p-2 bg-gray-600 rounded text-white" onClick={createNew}>
-            {" "}
-            Create New Recipe
-          </button>
           {featuredRecipes?.query.map((ele) => {
             return (
               <div className="m-2" key={ele._id}>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 const Question = (props) => {
   const [question, setQuestion] = useState("");
@@ -38,22 +39,19 @@ const Question = (props) => {
   };
 
   const addAnswer = async (questionId) => {
-    const addAnswer = await fetch(
-      `${process.env.apiKey}/recipe/postAnswer`,
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: props.recipeId,
-          answerName: props.user._id,
-          answer: answer,
-          recipeId: questionId
-        }),
-      }
-    );
+    const addAnswer = await fetch(`${process.env.apiKey}/recipe/postAnswer`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: props.recipeId,
+        answerName: props.user._id,
+        answer: answer,
+        recipeId: questionId,
+      }),
+    });
 
     if (addAnswer.status === 200) {
       window.alert("Answer Added");
@@ -64,7 +62,7 @@ const Question = (props) => {
   return (
     <div className="flex flex-col my-2">
       <div className="p-2 border-2 border-gray-400 rounded">
-        {props?.user?.userType === "User" && (
+        {props?.user?.userType === "user" && (
           <>
             <div className="w-full h-32">
               <textarea
@@ -89,7 +87,11 @@ const Question = (props) => {
               className="border-2 p-2 border-grey-200 rounded m-2">
               <div className="my-2 border-red-600 border-2 p-2">
                 <label className="semibold text-red-600">Question</label>
-                <h1 className="font-bold">{ele.questionName.username}</h1>
+                <Link
+                  className=" mx-2 font-semibold"
+                  href={`/userProfile/profilePage?profileId=${ele.questionName._id}`}>
+                  {ele.questionName.username}
+                </Link>
                 <h1 className="">{ele.question}</h1>
               </div>
 
@@ -97,7 +99,11 @@ const Question = (props) => {
                 <label className="semibold text-blue-600">Answer</label>
                 {ele.answerName ? (
                   <>
-                    <h1 className="font-bold">{ele.answerName?.username}</h1>
+                    <Link
+                      className=" mx-2 font-semibold"
+                      href={`/userProfile/profilePage?profileId=${ele.answerName._id}`}>
+                      {ele.answerName.username}
+                    </Link>
                     <h1 className="">{ele.answer}</h1>
                   </>
                 ) : props.user.userType === "User" ? (

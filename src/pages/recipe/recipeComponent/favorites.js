@@ -38,11 +38,13 @@ const Favorites = (props) => {
   };
   return (
     <>
-    {console.log(userFavoriteRecipe)}
       {!userFavoriteRecipe ? (
         <h1> </h1>
       ) : userFavoriteRecipe.includes(props.recipe) ? (
-        <CiHeart size={35} color="#000000" />
+        <>
+        <CiHeart size={35} color="#ff0000" fill="red" />
+        <h1 className="font-bold m-1 text-red-600">Favorite</h1>
+        </>
       ) : (
         <button
           className="p-1 border-2 border-grey-200 rounded bg-gray-600 text-white"

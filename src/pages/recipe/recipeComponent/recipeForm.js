@@ -118,7 +118,7 @@ const RecipeForm = (props) => {
   };
 
   const addToTags = (tag) => {
-    tags?.indexOf(tag) === -1 ? setTags((prev)=> [...prev, tag]) : tags
+    tags?.indexOf(tag) === -1 ? setTags((prev) => [...prev, tag]) : tags;
   };
 
   const removeIngredient = (e, ingredient) => {
@@ -140,53 +140,31 @@ const RecipeForm = (props) => {
   };
 
   const handleSubmit = async () => {
-    const handleSubmit = await fetch(
-      props?.update === true
-        ? `${process.env.apiKey}/recipe/editRecipe`
-        : `${process.env.apiKey}/recipe/addRecipe`,
-      {
-        method: props?.update === true ? "UPDATE" : "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: props?.update === true 
-          ?JSON.stringify({
-            id: props.recipeId,
-            name: name,
-            description: description,
-            ingredients: ingredients,
-            steps: steps,
-            meal_type: "main",
-            cooking_time: cookingTime,
-            prep_time: prepTime,
-            nutritional_data: nutritionalData,
-            tags: tags,
-            image_url: image
-          })
-          : JSON.stringify({
-            submitted_by: props.user,
-            name: name,
-            description: description,
-            ingredients: ingredients,
-            steps: steps,
-            meal_type: "main",
-            cooking_time: cookingTime,
-            prep_time: prepTime,
-            nutritional_data: nutritionalData,
-            tags: tags,
-            image_url: image,
-            verificationStatus: false
-          }),
-      }
-    );
+    const handleSubmit = await fetch(`${process.env.apiKey}/recipe/addRecipe`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        submitted_by: props.user,
+        name: props.update? `${props.username}'s ${name}` : name,
+        description: description,
+        ingredients: ingredients,
+        steps: steps,
+        meal_type: "main",
+        cooking_time: cookingTime,
+        prep_time: prepTime,
+        nutritional_data: nutritionalData,
+        tags: tags,
+        image_url: image,
+        verificationStatus: props?.update === true ? false : true,
+      }),
+    });
 
-    if(handleSubmit.status === 200) {
-        props?.update === true 
-        ? window.alert("Recipe Updated!")
-        : window.alert("Recipe Created")
-    }
-    else window.alert("Error, Please Try Again")
+    if (handleSubmit.status === 200) {
+        window.alert("Recipe Created")
+    } else window.alert("Error, Please Try Again");
   };
 
   return (
@@ -467,9 +445,7 @@ const RecipeForm = (props) => {
                 )}
               </div>
 
-              <RecipeTags
-              addToTag={addToTags} 
-              />
+              <RecipeTags addToTag={addToTags} />
             </div>
           </div>
 
@@ -489,8 +465,10 @@ const RecipeForm = (props) => {
             </div>
           </div>
 
-          <button className="font-bold p-2 bg-gray-600 rounded text-white" onClick={handleSubmit}>
-            {props?.update === true ? "Update Recipe" : "Create Recipe"}
+          <button
+            className="font-bold p-2 bg-gray-600 rounded text-white"
+            onClick={handleSubmit}>
+            {props?.update === true ? "Create Your Version" : "Create Recipe"}
           </button>
         </form>
       </div>

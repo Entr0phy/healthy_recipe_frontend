@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdOutlineStarOutline } from "react-icons/md";
 import { MdOutlineStar } from "react-icons/md";
+import Link from "next/link";
 
 const Comment = (props) => {
   const [comment, setComment] = useState("");
@@ -82,29 +83,30 @@ const Comment = (props) => {
   };
 
   const deleteComment = async (commentId, commentRating) => {
-    const deleteComment = await fetch(`${process.env.apiKey}/recipe/deleteComment`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: props.recipeId,
-        commentId: commentId,
-        ratings: commentRating
-      }),
-    });
+    const deleteComment = await fetch(
+      `${process.env.apiKey}/recipe/deleteComment`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: props.recipeId,
+          commentId: commentId,
+          ratings: commentRating,
+        }),
+      }
+    );
 
-    if(deleteComment.status === 200){
-      window.alert("Review Deleted")
+    if (deleteComment.status === 200) {
+      window.alert("Review Deleted");
       location.reload();
-    }
-    else window.alert("Error")
-  }
+    } else window.alert("Error");
+  };
 
   return (
     <div className="flex flex-col my-2">
-
       <div className="p-2 border-2 border-grey-400 rounded">
         {props.user && (
           <>
@@ -207,7 +209,11 @@ const Comment = (props) => {
             <div
               key={ele._id}
               className="border-2 p-2 border-grey-200 rounded m-2">
-              <h1 className="font-bold">{ele.name.username}</h1>
+              <Link
+                className="font-semibold"
+                href={`/userProfile/profilePage?profileId=${ele.name._id}`}>
+                {ele.name.username}
+              </Link>
               <div className="flex flex-wrap my-2">
                 {Array(ele.ratings)
                   .fill(true)
@@ -216,7 +222,13 @@ const Comment = (props) => {
                   ))}
               </div>
               <h1 className="font-semibold">{ele.comments}</h1>
-              {props?.user === ele.name._id && <button className="p-2 bg-red-200 rounded" onClick={() => deleteComment(ele._id, ele.ratings)}>Delete Comment</button>}
+              {props?.user === ele.name._id && (
+                <button
+                  className="p-2 bg-red-200 rounded"
+                  onClick={() => deleteComment(ele._id, ele.ratings)}>
+                  Delete Comment
+                </button>
+              )}
             </div>
           ))}
         </div>

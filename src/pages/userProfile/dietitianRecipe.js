@@ -53,7 +53,7 @@ const DietitianRecipe = () => {
           {myRecipe?.query.map((recipe) => (
                 <Link
                   key={recipe._id}
-                  href={`recipeScreen?recipeId=${recipe._id}`}>
+                  href={`/recipe/recipeScreen?recipeId=${recipe._id}`}>
                   <RecipeSearch
                     name={recipe.name}
                     image={recipe.image_url}

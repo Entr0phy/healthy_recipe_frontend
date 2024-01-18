@@ -4,6 +4,7 @@ import Comment from "./recipeComponent/comment";
 import { CiStar } from "react-icons/ci";
 import Favorites from "./recipeComponent/favorites";
 import Question from "./recipeComponent/question";
+import Link from "next/link";
 
 const RecipeScreen = () => {
   const router = useRouter();
@@ -31,6 +32,10 @@ const RecipeScreen = () => {
   const decrease = () => {
     setServingSize((prev) => (prev - 1 < 1 ? 1 : prev - 1));
   };
+
+  const editRecipe = () => {
+    router.push(`./editRecipe?recipeId=${router.query.recipeId}`)
+  }
 
   const addToCart = async () => {
     const addToCart = await fetch(
@@ -92,6 +97,10 @@ const RecipeScreen = () => {
             {sessionStorage.getItem("userId") !== null && (
               <Favorites recipe={router.query.recipeId} />
             )}
+            {sessionStorage.getItem("userId") !== null &&
+              JSON.parse(sessionStorage.getItem("userId")).userType === "user" && (
+                <button className="p-1 border-2 border-grey-200 rounded bg-green-600 text-white" onClick={editRecipe}>Modify Recipe</button>
+              )}
           </div>
 
           <div className="m-2 font-semibold text-lg flex flex-wrap">
@@ -100,9 +109,11 @@ const RecipeScreen = () => {
             ) : (
               <h1 className="text-red-600">Not Verified</h1>
             )}
-            <h1 className="mx-2">
+            <Link
+              className="mx-2"
+              href={`/userProfile/profilePage?profileId=${recipe.submitted_by._id}`}>
               Submitted By: {recipe.submitted_by.username}
-            </h1>
+            </Link>
           </div>
 
           <div className="flex justify-center items-center">

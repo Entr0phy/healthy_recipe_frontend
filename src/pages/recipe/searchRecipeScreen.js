@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecipeSearch from "./recipeComponent/recipeSearch";
 import Link from "next/link";
 import RecipeTags from "./recipeComponent/recipeTags";
 import RecipeSort from "./recipeComponent/recipeSort";
+import { useRouter } from "next/router";
+
 export default function RecipeScreen() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState(false);
@@ -11,6 +13,29 @@ export default function RecipeScreen() {
   const [sortButton, setSortButton] = useState(false);
   const [sort, setSort] = useState("");
   const [initial, setInitial] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
+  const [featured, setFeatured] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    setFeatured(router.query.setFeatured ? true : false);
+    const fetchData = async () => {
+      if (JSON.parse(sessionStorage.getItem("userId"))) {
+        const username = JSON.parse(sessionStorage.getItem("userId")).username;
+        const data = await fetch(
+          `${process.env.apiKey}/auth/user/getUserByUsername/${username}`
+        );
+        const json = await data.json();
+        setUserInfo(json);
+        json.health_goals.forEach((goals) => handleFilter(goals));
+      } else {
+        setUserInfo("");
+      }
+    };
+
+    fetchData();
+  }, [router.isReady, router.query.setFeatured]);
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
@@ -59,9 +84,72 @@ export default function RecipeScreen() {
       window.alert("Error, please try again");
     }
   };
+
+  const toggleFeatured = async (id) => {
+    const featured = await fetch(`${process.env.apiKey}/recipe/setFeatured`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+
+    if (featured.status === 200) {
+      window.alert("Added to Featured Recipe");
+      location.reload();
+    } else window.alert("Error");
+  };
+
+  const removeFeatured = async (id) => {
+    const featured = await fetch(`${process.env.apiKey}/recipe/removeFeatured`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+
+    if (featured.status === 200) {
+      window.alert("Removed From Featured Recipe");
+      location.reload();
+    } else window.alert("Error");
+  };
+
+  const handleFilter = (healthGoals) => {
+    //react dev mode does double render, hashSet is used to prevent duplicate from
+    //double useEffect calls
+    switch (healthGoals) {
+      case "Lose Weight":
+        setFilter((prev) => Array.from(new Set([...prev, "Low Calorie"])));
+        break;
+      case "Gain Muscle":
+        setFilter((prev) => Array.from(new Set([...prev, "High Protein"])));
+        break;
+      case "Lower Blood Pressure":
+        setFilter((prev) => Array.from(new Set([...prev, "Low Sodium"])));
+        break;
+      case "Reduce Blood Sugar":
+        setFilter((prev) =>
+          Array.from(new Set([...prev, "Low Sugar + Low GI"]))
+        );
+        break;
+      case "Lower Cholesterol":
+        setFilter((prev) => Array.from(new Set([...prev, "Low Fat"])));
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center py-6 sm:px-6 pg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md"></div>
+      {featured && (
+        <h1 className="text-center font-bold text-xl">
+          Toggle Featured Recipe
+        </h1>
+      )}
       <div className="mt-8">
         <div className="mt-1 flex flex-row my-2">
           <input
@@ -73,13 +161,15 @@ export default function RecipeScreen() {
             onChange={handleSearchChange}
             className="appearance-none block w-full px-5 py-2 border rounded-full border-2 border-grey-400"
           />
-          <div className="flex pl-4">
-            <button
-              className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2"
-              onClick={handleFilterButton}>
-              Filter
-            </button>
 
+          <div className="flex pl-4">
+            {userInfo !== null && userInfo !== "" && (
+              <button
+                className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2"
+                onClick={handleFilterButton}>
+                Filter
+              </button>
+            )}
             <button
               className="bg-white p-2 rounded font-bold text-slate-700 bg-gray-400 mx-2"
               onClick={handleSortButton}>
@@ -133,16 +223,33 @@ export default function RecipeScreen() {
           {!initial && searchResult && (
             <div className="flex flex-col bg-white">
               {searchResult?.map((recipe) => (
-                <Link
-                  key={recipe._id}
-                  href={`recipeScreen?recipeId=${recipe._id}`}>
-                  <RecipeSearch
-                    name={recipe.name}
-                    image={recipe.image_url}
-                    tags={recipe.tags}
-                    description={recipe.description}
-                  />
-                </Link>
+                <div key={recipe._id}>
+                  <Link
+                    key={recipe._id}
+                    href={`recipeScreen?recipeId=${recipe._id}`}>
+                    <RecipeSearch
+                      name={recipe.name}
+                      image={recipe.image_url}
+                      tags={recipe.tags}
+                      description={recipe.description}
+                    />
+                  </Link>
+                  {featured && recipe.featured === false && (
+                    <div className="align-center text-center m-2">
+                      <button className="p-2 bg-green-200 rounded text-semibold" onClick={() => toggleFeatured(recipe._id)}>
+                        Set Featured Recipe
+                      </button>
+                    </div>
+                  )}
+
+                  {featured && recipe.featured === true && (
+                    <div className="align-center text-center m-2">
+                      <button className="p-2 bg-red-200 rounded text-semibold" onClick={()=> removeFeatured(recipe._id)}>
+                        Remove Featured Recipe
+                      </button>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           )}
