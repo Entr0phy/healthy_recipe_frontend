@@ -51,6 +51,7 @@ const RecipeScreen = () => {
           groceryItems: recipe.ingredients.map((item) => ({
             ...item,
             quantity: item.quantity * servingSize,
+            recipeId: router.query.recipeId
           })),
         }),
       }

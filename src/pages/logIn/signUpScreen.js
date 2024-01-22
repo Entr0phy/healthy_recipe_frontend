@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Allergies from "../userProfile/userProfileComponents/allergies";
 import Dieraty from "../userProfile/userProfileComponents/dietary";
@@ -8,6 +8,7 @@ import HealthGoals from "../userProfile/userProfileComponents/healthGoals";
 
 export default function DisplayUserSignUp() {
   const [username, setUsername] = useState("");
+  ("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [dietaryPreference, setDietaryPreference] = useState(null);
@@ -17,7 +18,13 @@ export default function DisplayUserSignUp() {
   const [healthGoals3, setHealthGoals3] = useState("");
   const [healthGoals4, setHealthGoals4] = useState("");
   const [healthGoals5, setHealthGoals5] = useState("");
+  const [userType, setUserType] = useState("user");
   const router = useRouter();
+  useEffect(() => {
+    if (!router.isReady) return;
+    router.query?.dietitian && setUserType("dietitian");
+    router.query?.admin && setUserType("admin");
+  }, [router.query.dietitian, router.query.admin, router.isReady]);
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -103,6 +110,7 @@ export default function DisplayUserSignUp() {
         dietary_preferences: dietaryPreference,
         allergies: allergy,
         health_goals: healthGoals,
+        userType: userType,
       }),
     });
     if (createUser.status === 200) {
@@ -117,9 +125,10 @@ export default function DisplayUserSignUp() {
       </Head>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* <img className="mx-auto h-12 w-auto" src="/logo.svg" alt="Logo" /> */}
         <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
-          Tell us more about you!
+          {userType !== "user"
+            ? `Set Up ${userType} Account`
+            : "Tell us more about you!"}
         </h2>
       </div>
 
@@ -226,7 +235,7 @@ export default function DisplayUserSignUp() {
           <div className="flex items-center justify-between">
             <div className="text-sm mt-6">
               <Link
-                href="/UserLogInScreen"
+                href="./logInScreen"
                 className="font-medium text-gold-600 hover:text-amber-500">
                 Go back to log in page
               </Link>
