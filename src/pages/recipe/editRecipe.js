@@ -4,6 +4,7 @@ import RecipeForm from "./recipeComponent/recipeForm";
 
 const EditRecipe = () => {
   const [recipe, setRecipe] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
   useEffect(() => {
     if (!router.isReady) return;
@@ -18,12 +19,26 @@ const EditRecipe = () => {
       });
   }, [router.isReady, router.query.recipeId]);
 
+  useEffect(() => {
+    const username = JSON.parse(sessionStorage.getItem('userId')).username;
+
+    const fetchData = async () => {
+      const data = await fetch(
+        `${process.env.apiKey}/auth/user/getUserByUsername/${username}`
+      );
+      const json = await data.json();
+      setCurrentUser(json);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex flex-col m-2">
       <h1 className="font-bold text-center text-xl">
         Edit Recipe To Your Preference
       </h1>
-      {!recipe ? <h1>Loading...</h1>
+      {!recipe  ? <h1>Loading...</h1>
       : <RecipeForm
       name = {recipe.name}
       description = {recipe.description}
@@ -35,8 +50,8 @@ const EditRecipe = () => {
       tags = {recipe.tags}
       image = {recipe.image_url}
       update = {true}
-      user = {recipe.submitted_by._id}
-      username = {recipe.submitted_by.username}
+      user = {currentUser._id}
+      username = {currentUser.username}
       />}
     </div>
   );

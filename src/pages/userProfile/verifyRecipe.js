@@ -15,7 +15,7 @@ const VerifyRecipe = () => {
     fetchData();
   }, []);
 
-  const verifyRecipe = async (recipeId) => {
+  const verifyRecipe = async (recipeId, userId) => {
     const verifyRecipe = await fetch(
       `${process.env.apiKey}/recipe/verifyRecipe`,
       {
@@ -26,6 +26,7 @@ const VerifyRecipe = () => {
         },
         body: JSON.stringify({
           id: recipeId,
+          userId: userId
         }),
       }
     );
@@ -57,8 +58,9 @@ const VerifyRecipe = () => {
                   tags={recipe.tags}
                   description={recipe.description}
                 />
+                {console.log(recipe.submitted_by)}
               </Link>
-              <button className="m-2 bg-green-200 rounded font-semibold p-2" onClick={()=> verifyRecipe(recipe._id)}>
+              <button className="m-2 bg-green-200 rounded font-semibold p-2" onClick={()=> verifyRecipe(recipe._id, recipe.submitted_by._id)}>
                 Verify
               </button>
             </div>

@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const RecipeScreen = () => {
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState(null);
   const [recipe, setRecipe] = useState(null);
   const [questionToggle, setQuestionToggle] = useState(false);
   const [servingSize, setServingSize] = useState(1);
@@ -25,6 +26,22 @@ const RecipeScreen = () => {
       });
   }, [router.isReady, router.query.recipeId]);
 
+  useEffect(() => {
+    const username = JSON.parse(sessionStorage?.getItem("userId"))?.username;
+
+    const fetchData = async () => {
+      if (username) {
+        const data = await fetch(
+          `${process.env.apiKey}/auth/user/getUserByUsername/${username}`
+        );
+        const json = await data.json();
+        setCurrentUser(json);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const increase = () => {
     setServingSize((prev) => prev + 1);
   };
@@ -34,8 +51,8 @@ const RecipeScreen = () => {
   };
 
   const editRecipe = () => {
-    router.push(`./editRecipe?recipeId=${router.query.recipeId}`)
-  }
+    router.push(`./editRecipe?recipeId=${router.query.recipeId}`);
+  };
 
   const addToCart = async () => {
     const addToCart = await fetch(
@@ -51,7 +68,7 @@ const RecipeScreen = () => {
           groceryItems: recipe.ingredients.map((item) => ({
             ...item,
             quantity: item.quantity * servingSize,
-            recipeId: router.query.recipeId
+            recipeId: router.query.recipeId,
           })),
         }),
       }
@@ -99,8 +116,13 @@ const RecipeScreen = () => {
               <Favorites recipe={router.query.recipeId} />
             )}
             {sessionStorage.getItem("userId") !== null &&
-              JSON.parse(sessionStorage.getItem("userId")).userType === "user" && (
-                <button className="p-1 border-2 border-grey-200 rounded bg-green-600 text-white" onClick={editRecipe}>Modify Recipe</button>
+              JSON.parse(sessionStorage.getItem("userId")).userType ===
+                "user" && (
+                <button
+                  className="p-1 border-2 border-grey-200 rounded bg-green-600 text-white"
+                  onClick={editRecipe}>
+                  Modify Recipe
+                </button>
               )}
           </div>
 
@@ -217,10 +239,10 @@ const RecipeScreen = () => {
               comments={recipe.comments}
               user={
                 sessionStorage.getItem("userId") !== null
-                  ? JSON.parse(sessionStorage.getItem("userId"))._id
+                  ? currentUser
                   : null
               }
-              recipeId={recipe._id}
+              recipeId={recipe}
             />
           ) : (
             <h1>

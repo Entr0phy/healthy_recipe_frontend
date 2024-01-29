@@ -69,10 +69,12 @@ const Comment = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: props.recipeId,
-        name: props.user,
+        id: props.recipeId._id,
+        name: props.user._id,
         ratings: rating,
         comments: comment,
+        userInfo: props.user,
+        recipeInfo: props.recipeId
       }),
     });
 
