@@ -34,6 +34,10 @@ const UserHome = () => {
     router.push('./dietitianRecipe')
   }
 
+  const badgesPage = () => {
+    router.push('./badges')
+  }
+
   return (
     <>
       <h1 className="font-bold text-center m-2 text-xl">{`${currentUser?.username} Profile Page`}</h1>
@@ -58,11 +62,6 @@ const UserHome = () => {
           <h2>{">"}</h2>
         </div>
 
-        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between">
-          <h2>Follow</h2>
-          <h2>{">"}</h2>
-        </div>
-
         <div
           className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between"
           onClick={myReviewPage}>
@@ -82,7 +81,7 @@ const UserHome = () => {
           <h2>{">"}</h2>
         </div>
 
-        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between">
+        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between" onClick={badgesPage}>
           <h2>Badges</h2>
           <h2>{">"}</h2>
         </div>
