@@ -19,7 +19,7 @@ const MainFeed = () => {
       {!featuredRecipes ? (
         <h1>Loading...</h1>
       ) : (
-        featuredRecipes?.query.map((ele) => {
+        featuredRecipes?.map((ele) => {
           return (
             <div className="m-2" key={ele._id}>
             <FeedRecipeCard
