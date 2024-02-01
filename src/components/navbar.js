@@ -3,6 +3,8 @@ import { useContext } from "react";
 import { Context } from "../store/context";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from 'next/image'
+import logo from '../../public/assets/logo.png'
 
 function NavLink({ to, children }) {
   return (
@@ -28,27 +30,29 @@ function MobileNav({ open, setOpen }) {
         </Link>
       </div>
       <div className="flex flex-col ml-4">
-        <Link
-          className="inline-block bg-zinc-100 hover:bg-zinc-400 text-black font-medium py-2 px-4 rounded-lg transition-colors duration-300 my-2"
-          href="/recipe/searchRecipeScreen"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }>
-          Recipe
-        </Link>
         {currentUser && (
-          <Link
-            className="inline-block bg-zinc-100 hover:bg-zinc-400 text-black font-medium py-2 px-4 rounded-lg transition-colors duration-300 my-2"
-            href="/feed/feedScreen"
-            onClick={() =>
-              setTimeout(() => {
-                setOpen(!open);
-              }, 100)
-            }>
-            Feed
-          </Link>
+          <>
+            <Link
+              className="inline-block bg-zinc-100 hover:bg-zinc-400 text-black font-medium py-2 px-4 rounded-lg transition-colors duration-300 my-2"
+              href="/recipe/searchRecipeScreen"
+              onClick={() =>
+                setTimeout(() => {
+                  setOpen(!open);
+                }, 100)
+              }>
+              Recipe
+            </Link>
+            <Link
+              className="inline-block bg-zinc-100 hover:bg-zinc-400 text-black font-medium py-2 px-4 rounded-lg transition-colors duration-300 my-2"
+              href="/feed/feedScreen"
+              onClick={() =>
+                setTimeout(() => {
+                  setOpen(!open);
+                }, 100)
+              }>
+              Feed
+            </Link>
+          </>
         )}
 
         {!currentUser && (
@@ -113,11 +117,7 @@ export default function Navbar() {
     <nav className="flex filter drop-shadow-md bg-zinc-200 px-4 py-4 h-20 items-center border-b-2">
       <MobileNav open={open} setOpen={setOpen} />
       <div className="w-3/12 flex items-center">
-        <button
-          className="text-2xl font-semibold text-black-300"
-          onClick={index}>
-          FYP
-        </button>
+        <Image src={logo} alt="logo" onClick={index} className="h-10 object-contain"/>
       </div>
       <div className="w-9/12 flex justify-end items-center">
         <div
@@ -144,14 +144,15 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex">
-          <button onClick={recipe} className="m-2 text-black-300 font-bold">
-            Recipe
-          </button>
-
           {currentUser && (
-            <button onClick={feed} className="m-2 text-black-300 font-bold">
-              Feed
-            </button>
+            <>
+              <button onClick={recipe} className="m-2 text-black-300 font-bold">
+                Recipe
+              </button>
+              <button onClick={feed} className="m-2 text-black-300 font-bold">
+                Feed
+              </button>
+            </>
           )}
 
           {/* {isLoggedIn ? (
