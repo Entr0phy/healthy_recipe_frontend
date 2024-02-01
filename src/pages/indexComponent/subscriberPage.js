@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Image from 'next/image'
 const SubscriberPage = () => {
   const router = useRouter();
 
@@ -53,7 +54,7 @@ const SubscriberPage = () => {
             {" "}
             {/* Fixed width with calc() */}
             <div className="bg-white rounded-lg shadow overflow-hidden">
-              <img
+              <Image
                 src={freshContent.query[0].image_url}
                 alt="Recipe 1"
                 className="object-cover"
@@ -84,7 +85,7 @@ const SubscriberPage = () => {
             <div
               className="bg-white rounded-lg shadow overflow-hidden mb-6"
               onClick={() => redirectToFreshRecipe(freshContent.query[1]._id)}>
-              <img
+              <Image
                 src={freshContent.query[1].image_url}
                 alt="Recipe 2"
                 className="object-cover"
@@ -101,7 +102,7 @@ const SubscriberPage = () => {
             <div
               className="bg-white rounded-lg shadow overflow-hidden"
               onClick={() => redirectToFreshRecipe(freshContent.query[2]._id)}>
-              <img
+              <Image
                 src={freshContent.query[2].image_url}
                 alt="Recipe 3"
                 className="object-cover"
@@ -131,7 +132,7 @@ const SubscriberPage = () => {
             <div className="w-full sm:w-1/2 md:w-1/3 p-4" key={Math.random()}>
               <div className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="w-full h-64 flex-shrink-0">
-                  <img
+                  <Image
                     src={recipe.image_url}
                     alt="recipe Image"
                     className="w-full h-full object-cover"

@@ -59,8 +59,6 @@ const AdminHome = () => {
         </div>
 
       </div>
-
-      <DietitianHome />
     </>
   );
 };

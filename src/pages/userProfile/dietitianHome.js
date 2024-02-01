@@ -77,8 +77,6 @@ const DietitianHome = () => {
           <h1>{">"}</h1>
         </div>
       </div>
-
-      <UserHome />
     </>
   );
 };

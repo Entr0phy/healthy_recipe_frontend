@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image'
 import { useRouter } from "next/router";
 const FeedRecipeCard = (props) => {
     const router = useRouter();
@@ -9,7 +10,7 @@ const FeedRecipeCard = (props) => {
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4" onClick={()=> redirectToFreshRecipe(props.id)}>
       <div className="w-25 h-25 bg-gray-200 overflow-hidden">
-        <img
+        <Image
           src={props.image}
           alt="Recipe"
           className="w-full h-full object-fill"

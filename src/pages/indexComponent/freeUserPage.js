@@ -38,7 +38,7 @@ const FreeUserPage = () => {
               key={recipe._id}
               className="w-full md:w-1/3 lg:w-1/4 p-4 flex flex-col items-center"
               onClick={() => redirectToFreshRecipe(recipe._id)}>
-              <img
+              <Image
                 src={recipe.image_url}
                 alt={recipe.name}
                 className="object-cover w-full h-48 mb-2"

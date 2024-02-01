@@ -5,6 +5,7 @@ import { CiStar } from "react-icons/ci";
 import Favorites from "./recipeComponent/favorites";
 import Question from "./recipeComponent/question";
 import Link from "next/link";
+import Image from 'next/image'
 
 const RecipeScreen = () => {
   const router = useRouter();
@@ -141,7 +142,7 @@ const RecipeScreen = () => {
 
           <div className="flex justify-center items-center">
             <div className="overflow-hidden max-w-md m-2 border-2">
-              <img
+              <Image
                 className="items-center justify-center"
                 src={recipe.image_url}
                 alt="Recipe image"
