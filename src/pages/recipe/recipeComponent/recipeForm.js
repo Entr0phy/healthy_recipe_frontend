@@ -141,7 +141,8 @@ const RecipeForm = (props) => {
     setTags(removedTags);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const handleSubmit = await fetch(`${process.env.apiKey}/recipe/addRecipe`, {
       method: "POST",
       headers: {
@@ -172,7 +173,7 @@ const RecipeForm = (props) => {
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-6xl">
       <div className="bg-zinc-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <div className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username" className="block text-sm font-medium">
               Recipe Name
@@ -469,10 +470,10 @@ const RecipeForm = (props) => {
 
           <button
             className="font-bold p-2 bg-gray-600 rounded text-white"
-            onClick={handleSubmit}>
+            type="submit">
             {props?.update === true ? "Create Your Version" : "Create Recipe"}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
