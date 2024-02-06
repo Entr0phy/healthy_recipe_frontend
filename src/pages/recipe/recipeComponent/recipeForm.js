@@ -146,7 +146,8 @@ const RecipeForm = (props) => {
     const handleSubmit = await fetch(`${process.env.apiKey}/recipe/addRecipe`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         submitted_by: props.user,
@@ -173,7 +174,7 @@ const RecipeForm = (props) => {
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-6xl">
       <div className="bg-zinc-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit} action={`${process.env.apiKey}/recipe/addRecipe`}>
           <div>
             <label htmlFor="username" className="block text-sm font-medium">
               Recipe Name
