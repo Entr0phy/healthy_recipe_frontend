@@ -38,7 +38,7 @@ const EditRecipe = () => {
       <h1 className="font-bold text-center text-xl">
         Edit Recipe To Your Preference
       </h1>
-      {!recipe  ? <h1>Loading...</h1>
+      {!recipe || !currentUser  ? <h1>Loading...</h1>
       : <RecipeForm
       name = {recipe.name}
       description = {recipe.description}
