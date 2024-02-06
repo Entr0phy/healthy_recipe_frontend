@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import RecipeTags from "./recipeTags";
+import router from 'next/router';
 
 const RecipeForm = (props) => {
   const [name, setName] = useState(props?.name ?? "");
@@ -23,6 +24,7 @@ const RecipeForm = (props) => {
   );
   const [tags, setTags] = useState(props?.tags ?? []);
   const [image, setImage] = useState(props?.image ?? "");
+  const router = useRouter();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -162,7 +164,8 @@ const RecipeForm = (props) => {
     });
 
     if (handleSubmit.status === 200) {
-        window.alert("Recipe Created")
+        window.alert("Recipe Created");
+        router.push("/")
     } else window.alert("Error, Please Try Again");
   };
 
