@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RecipeTags from "./recipeTags";
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 const RecipeForm = (props) => {
   const [name, setName] = useState(props?.name ?? "");
