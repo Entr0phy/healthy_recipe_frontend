@@ -172,7 +172,7 @@ const RecipeForm = (props) => {
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-6xl">
       <div className="bg-zinc-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form className="space-y-6" action="#" method="POST">
+        <div className="space-y-6">
           <div>
             <label htmlFor="username" className="block text-sm font-medium">
               Recipe Name
@@ -472,7 +472,7 @@ const RecipeForm = (props) => {
             onClick={handleSubmit}>
             {props?.update === true ? "Create Your Version" : "Create Recipe"}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
