@@ -33,7 +33,7 @@ const Question = (props) => {
     );
 
     if (addQuestion.status === 200) {
-      window.alert("Review Added");
+      window.alert("Question Added");
       location.reload();
     } else window.alert("Error, Please try again");
   };
@@ -106,7 +106,7 @@ const Question = (props) => {
                     </Link>
                     <h1 className="">{ele.answer}</h1>
                   </>
-                ) : props.user.userType === "User" ? (
+                ) : props.user.userType === "user" ? (
                   <h1>This Question Has yet to be answered yet</h1>
                 ) : (
                   <>
