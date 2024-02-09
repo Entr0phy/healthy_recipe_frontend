@@ -76,7 +76,7 @@ function MobileNav({ open, setOpen }) {
                 setOpen(!open);
               }, 100)
             }>
-            Profile
+            Settings
           </Link>
         )}
       </div>
@@ -164,7 +164,7 @@ export default function Navbar() {
             <button
               onClick={userProfile}
               className="m-2 text-black-300 font-bold">
-              Profile
+              Setting
             </button>
           )}
           {!currentUser && (

@@ -189,7 +189,7 @@ const ShoppingList = () => {
             </h1>
           )}
           {Object.keys(editQuantity).map((groupName) => (
-            <div key={groupName}>
+            <div key={groupName} className="m-2 border-2 border-green-200 p-2 rounded">
               <h2 className="font-bold text-lg">{groupName}</h2>
               {editQuantity[groupName]?.map((ele, index) => (
                 <div className="flex flex-wrap p-2" key={ele._id}>
