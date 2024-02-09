@@ -66,7 +66,7 @@ const UserScreen = () => {
       <button
         className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2"
         onClick={homePage}>
-        Back to Home Page
+        Back to Settings
       </button>
     </div>
   );

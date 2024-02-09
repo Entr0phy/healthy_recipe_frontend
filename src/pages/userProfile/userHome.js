@@ -77,7 +77,7 @@ const UserHome = () => {
         <div
           className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between"
           onClick={savedRecipesPage}>
-          <h2>Saved Recipes</h2>
+          <h2>Favorites </h2>
           <h2>{">"}</h2>
         </div>
 

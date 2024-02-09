@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PastComment from "./reviewComponent/pastComment";
 import Link from "next/link";
+import { useRouter } from 'next/router'
+
 const MyReviews = () => {
   const [reviewRecipe, setReviewRecipe] = useState(null);
+  const router = useRouter();
+  const homePage = () => router.push("./userHome");
   useEffect(() => {
     const id = JSON.parse(sessionStorage.getItem("userId"))._id;
     const fetchFeaturedRecipe = async () => {
@@ -48,6 +52,7 @@ const MyReviews = () => {
               />
             </Link>
           ))}
+          <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
         </div>
       )}
     </div>

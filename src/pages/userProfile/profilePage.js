@@ -85,7 +85,7 @@ const ProfilePage = () => {
               {userProfile.username} Recipes
             </label>
             <h1 className="text-center font-bold text-green-600 m-2">
-              Recipe Average : {average}/5
+              {Number.isNaN(Number(average))  ? `No Recipe created` : `Recipe Average : ${average}/5`}
             </h1>
             {myRecipe?.query.map((ele) => (
               <Link

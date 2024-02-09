@@ -23,6 +23,9 @@ const OrderHistory = () => {
         <h1>Loading...</h1>
       ) : (
         <div className="m-2">
+          <div className="border-2 border-gray-300 m-2 p-2 rounded">
+            <h1 className="font-bold text-red-600 text-center">Having Issues With Your Order? Please drop us a email at support@fyp.com</h1>
+          </div>
           {order?.map((ele) => (
             <div key={ele._id}>
               <OrderCard

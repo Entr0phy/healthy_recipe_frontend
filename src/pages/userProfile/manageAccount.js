@@ -22,7 +22,7 @@ const ManageAccount = () => {
         </ul>
       </div>
 
-      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Home Page</button>
+      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
     </>
   );
 };

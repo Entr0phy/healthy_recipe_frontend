@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import RecipeSearch from "../recipe/recipeComponent/recipeSearch";
+import { useRouter } from "next/router";
 
 const DietitianRecipe = () => {
   const [myRecipe, setMyRecipe] = useState(null);
   const [average, setAverage] = useState(null);
+  const router = useRouter();
+  const homePage = () => router.push("./userHome");
   const getAverage = (sum, length) =>
     sum === 0 || length === 0 ? 0 : sum / length;
   useEffect(() => {
@@ -23,15 +26,12 @@ const DietitianRecipe = () => {
 
       const json = await data.json();
       setMyRecipe(json);
-      const totalRatings = json.query.reduce(
-        (accumulator, currentValue) => {
-          return (
-            accumulator +
-            getAverage(currentValue.ratings, currentValue.comments.length)
-          );
-        },
-        0
-      );
+      const totalRatings = json.query.reduce((accumulator, currentValue) => {
+        return (
+          accumulator +
+          getAverage(currentValue.ratings, currentValue.comments.length)
+        );
+      }, 0);
       setAverage((totalRatings / json.query.length).toFixed(1));
     };
 
@@ -47,10 +47,12 @@ const DietitianRecipe = () => {
         <h1>Loading...</h1>
       ) : (
         <div className="flex flex-col m-2 p-2 border-2">
-          <h1 className="text-center font-bold text-green-600 m-2">
-            Your Recipe Average : {average}/5
-          </h1>
-          {myRecipe?.query.map((recipe) => (
+          {myRecipe?.query.length > 0 ? (
+            <>
+              <h1 className="text-center font-bold text-green-600 m-2">
+                Average Recipe Rating : {average}/5
+              </h1>
+              {myRecipe?.query.map((recipe) => (
                 <Link
                   key={recipe._id}
                   href={`/recipe/recipeScreen?recipeId=${recipe._id}`}>
@@ -62,8 +64,15 @@ const DietitianRecipe = () => {
                   />
                 </Link>
               ))}
+            </>
+          ) : (
+            <h1 className="text-center font-bold text-red-600 m-2">No Recipe Created Yet</h1>
+          )}
         </div>
       )}
+      <div>
+      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
+      </div>
     </div>
   );
 };

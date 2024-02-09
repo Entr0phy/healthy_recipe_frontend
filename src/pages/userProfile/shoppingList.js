@@ -4,6 +4,7 @@ const ShoppingList = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [editQuantity, setEditQuantity] = useState({});
   const router = useRouter();
+  const homePage = () => router.push("./userHome");
   useEffect(() => {
     const username = JSON.parse(sessionStorage.getItem("userId")).username;
 
@@ -240,6 +241,9 @@ const ShoppingList = () => {
           onClick={redirectToOrderHistory}>
           View Order History
         </button>
+      </div>
+      <div>
+      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
       </div>
     </div>
   );

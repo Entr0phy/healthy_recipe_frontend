@@ -8,9 +8,11 @@ import ReviewsBadges from "./badgesComponent/reviews";
 import CustomiseBadges from "./badgesComponent/customise";
 import VerifyBadges from "./badgesComponent/verify";
 import CartBadges from "./badgesComponent/cart";
+import { useRouter } from "next/router";
 const Badges = () => {
   const [userInfo, setUserInfo] = useState(null);
-
+  const router = useRouter();
+  const homePage = () => router.push("./userHome");
   useEffect(() => {
     const fetchData = async () => {
       const username = JSON.parse(sessionStorage.getItem("userId")).username;
@@ -42,6 +44,9 @@ const Badges = () => {
           {userInfo.badges.cart >0 && <CartBadges Cart={userInfo.badges.cart}/>}
         </div>
       )}
+      <div>
+      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
+      </div>
     </div>
   );
 };
