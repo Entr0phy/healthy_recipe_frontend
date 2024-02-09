@@ -6,7 +6,7 @@ const MainFeed = () => {
 
   useEffect(() => {
     const fetchFeaturedRecipe = async () => {
-      const data = await fetch(`${process.env.apiKey}/recipe/reconmendedRecipe`);
+      const data = await fetch(`${process.env.apiKey}/recipe/recipeLatest`);
       const json = await data.json();
       setFeaturedRecipes(json);
     };
@@ -19,7 +19,7 @@ const MainFeed = () => {
       {!featuredRecipes ? (
         <h1>Loading...</h1>
       ) : (
-        featuredRecipes?.map((ele) => {
+        featuredRecipes?.query.map((ele) => {
           return (
             <div className="m-2" key={ele._id}>
             <FeedRecipeCard
