@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 const MyReviews = () => {
   const [favorite_recipes, setFavoriteRecipes] = useState(null);
   const router = useRouter();
-  const homePage = () => router.push("./userHome");
+  const homePage = () => router.push("./userProfileScreen");
   useEffect(() => {
     const username = JSON.parse(sessionStorage.getItem("userId")).username;
     const fetchData = async () => {

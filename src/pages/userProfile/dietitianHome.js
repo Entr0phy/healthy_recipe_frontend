@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/context";
 import { useRouter } from "next/router";
-import UserHome from "./userHome";
 
 const DietitianHome = () => {
   const [currentUser] = useContext(Context);

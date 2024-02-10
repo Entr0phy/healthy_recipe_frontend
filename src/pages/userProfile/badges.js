@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 const Badges = () => {
   const [userInfo, setUserInfo] = useState(null);
   const router = useRouter();
-  const homePage = () => router.push("./userHome");
+  const homePage = () => router.push("./userProfileScreen");
   useEffect(() => {
     const fetchData = async () => {
       const username = JSON.parse(sessionStorage.getItem("userId")).username;

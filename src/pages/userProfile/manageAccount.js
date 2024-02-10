@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const ManageAccount = () => {
   const [currentUser] = useContext(Context);
   const router = useRouter();
-  const homePage = () => router.push("./userHome");
+  const homePage = () => router.push("./userProfileScreen");
   return (
     <>
       <h1 className="font-bold text-xl p-2 text-center">{`${currentUser?.username} Account`}</h1>

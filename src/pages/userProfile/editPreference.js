@@ -22,7 +22,7 @@ const UserScreen = () => {
   }, []);
 
   const homePage = () => {
-    router.push("./userHome");
+    router.push("./userProfileScreen");
   };
 
   const dietaryPage = () => {

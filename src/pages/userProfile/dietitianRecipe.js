@@ -7,7 +7,7 @@ const DietitianRecipe = () => {
   const [myRecipe, setMyRecipe] = useState(null);
   const [average, setAverage] = useState(null);
   const router = useRouter();
-  const homePage = () => router.push("./userHome");
+  const homePage = () => router.push("./userProfileScreen");
   const getAverage = (sum, length) =>
     sum === 0 || length === 0 ? 0 : sum / length;
   useEffect(() => {

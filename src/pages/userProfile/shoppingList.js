@@ -4,7 +4,7 @@ const ShoppingList = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [editQuantity, setEditQuantity] = useState({});
   const router = useRouter();
-  const homePage = () => router.push("./userHome");
+  const homePage = () => router.push("./userProfileScreen");
   useEffect(() => {
     const username = JSON.parse(sessionStorage.getItem("userId")).username;
 
