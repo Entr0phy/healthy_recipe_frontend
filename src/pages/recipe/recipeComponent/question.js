@@ -75,7 +75,8 @@ const Question = (props) => {
 
             <button
               className="p-2 border-2 border-grey-400 rounded bg-gray-600 text-white my-2"
-              onClick={addQuestion}>
+              onClick={addQuestion}
+              disabled={question === ''}>
               Post Question
             </button>
           </>
@@ -119,7 +120,8 @@ const Question = (props) => {
 
                     <button
                       className="p-2 border-2 border-grey-400 rounded bg-gray-600 text-white my-2"
-                      onClick={() => addAnswer(ele._id)}>
+                      onClick={() => addAnswer(ele._id)}
+                      disabled={answer===''}>
                       Post Answer
                     </button>
                   </>

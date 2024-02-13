@@ -200,7 +200,8 @@ const Comment = (props) => {
 
             <button
               className="p-2 border-2 border-grey-400 rounded bg-gray-600 text-white"
-              onClick={addComment}>
+              onClick={addComment}
+              disabled={comment === ''}>
               Post Comment
             </button>
           </>

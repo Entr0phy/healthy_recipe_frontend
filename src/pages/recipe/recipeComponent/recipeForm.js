@@ -24,38 +24,47 @@ const RecipeForm = (props) => {
   );
   const [tags, setTags] = useState(props?.tags ?? []);
   const [image, setImage] = useState(props?.image ?? "");
+  const [changes, setChanges] = useState(false)
   const router = useRouter();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
+    setChanges(true)
   };
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
+    setChanges(true)
   };
 
   const handleAddIngredientNameChange = (e) => {
     setAddIngredientName(e.target.value);
+    setChanges(true)
   };
 
   const handleAddIngredientUOMChange = (e) => {
     setAddIngredientUOM(e.target.value);
+    setChanges(true)
   };
 
   const handleAddIngredientQuantityChange = (e) => {
     setAddIngredientQuantity(e.target.value);
+    setChanges(true)
   };
 
   const handleAddStepsChange = (e) => {
     setAddSteps(e.target.value);
+    setChanges(true)
   };
 
   const handlePrepTimeChange = (e) => {
     setPrepTime(e.target.value);
+    setChanges(true)
   };
 
   const handleCookingTimeChange = (e) => {
     setCookingTime(e.target.value);
+    setChanges(true)
   };
 
   const handleCaloriesChange = (e) => {
@@ -63,6 +72,7 @@ const RecipeForm = (props) => {
       ...previousValue,
       calories: e.target.value,
     }));
+    setChanges(true)
   };
 
   const handleCarbohydratesChange = (e) => {
@@ -70,6 +80,7 @@ const RecipeForm = (props) => {
       ...previousValue,
       carbohydrates: e.target.value,
     }));
+    setChanges(true)
   };
 
   const handleSodiumChange = (e) => {
@@ -77,6 +88,7 @@ const RecipeForm = (props) => {
       ...previousValue,
       sodium: e.target.value,
     }));
+    setChanges(true)
   };
 
   const handleProteinChange = (e) => {
@@ -84,6 +96,7 @@ const RecipeForm = (props) => {
       ...previousValue,
       protein: e.target.value,
     }));
+    setChanges(true)
   };
 
   const handleFatChange = (e) => {
@@ -91,11 +104,13 @@ const RecipeForm = (props) => {
       ...previousValue,
       fat: e.target.value,
     }));
+    setChanges(true)
   };
 
   const handleImageChange = (e) => {
     e.preventDefault();
     setImage(e.target.value);
+    setChanges(true)
   };
 
   const addToIngredientList = (e) => {
@@ -111,12 +126,14 @@ const RecipeForm = (props) => {
     setAddIngredientName("");
     setAddIngredientUOM("");
     setAddIngredientQuantity(0);
+    setChanges(true)
   };
 
   const addToRecipeSteps = (e) => {
     e.preventDefault();
     setSteps((previousSteps) => [...previousSteps, addSteps]);
     setAddSteps("");
+    setChanges(true)
   };
 
   const addToTags = (tag) => {
@@ -471,7 +488,7 @@ const RecipeForm = (props) => {
 
           <button
             className="font-bold p-2 bg-gray-600 rounded text-white"
-            type="submit">
+            type="submit" disabled={!changes}>
             {props?.update === true ? "Create Your Version" : "Create Recipe"}
           </button>
         </form>
