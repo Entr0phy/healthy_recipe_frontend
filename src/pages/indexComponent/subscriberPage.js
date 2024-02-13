@@ -130,7 +130,7 @@ const SubscriberPage = () => {
           {/* Individual card */}
           {reconmend.map((recipe, index) => (
             <div className="w-full sm:w-1/2 md:w-1/3 p-4" key={Math.random()}>
-              <div className="bg-white rounded-lg shadow overflow-hidden">
+              <div className="bg-white rounded-lg shadow overflow-hidden" onClick={() => redirectToFreshRecipe(recipe._id)}>
                 <div className="w-full h-64 flex-shrink-0">
                   <Image
                     src={recipe.image_url}
@@ -141,11 +141,6 @@ const SubscriberPage = () => {
                 <div className="p-6">
                   <div className="text-sm text-gray-500 mb-2"></div>
                   <h3 className="font-semibold text-lg mb-4">{recipe.name}</h3>
-                  <button
-                    className="text-indigo-600 hover:text-indigo-500 text-sm font-semibold"
-                    onClick={() => redirectToFreshRecipe(recipe._id)}>
-                    Read More
-                  </button>
                 </div>
               </div>
             </div>

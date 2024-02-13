@@ -58,7 +58,7 @@ const UserHome = () => {
         <div
           className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between"
           onClick={customiseProfile}>
-          <h2>Customise Profile</h2>
+          <h2>Customise Preferences</h2>
           <h2>{">"}</h2>
         </div>
 

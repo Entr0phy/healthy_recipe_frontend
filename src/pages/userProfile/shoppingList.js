@@ -165,7 +165,7 @@ const ShoppingList = () => {
     );
 
     if (submitOrder.status === 200) {
-      alert("Your preferences have been updated!");
+      alert("Your order has been submitted!");
       window.location.reload();
     } else {
       window.alert("Please try again");

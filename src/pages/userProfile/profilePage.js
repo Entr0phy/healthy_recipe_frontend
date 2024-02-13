@@ -57,7 +57,7 @@ const ProfilePage = () => {
       ) : (
         <>
           <h1 className="text-center m-4 text-3xl font-bold">
-            {userProfile.username} Profile Page
+            {userProfile.username} 
           </h1>
 
           {userProfile.userType === 'user' && <div className="m-2 border-2 border-gray-400 rounded p-2">
