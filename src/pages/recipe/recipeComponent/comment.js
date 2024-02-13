@@ -224,7 +224,7 @@ const Comment = (props) => {
                   ))}
               </div>
               <h1 className="font-semibold">{ele.comments}</h1>
-              {(props?.user._id === ele.name._id || props?.user.userType === 'admin') && (
+              {(props?.user?._id === ele.name._id || props?.user?.userType === 'admin') && (
                 <button
                   className="p-2 bg-red-200 rounded"
                   onClick={() => deleteComment(ele._id, ele.ratings)}>

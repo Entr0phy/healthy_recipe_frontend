@@ -70,7 +70,7 @@ function MobileNav({ open, setOpen }) {
         {currentUser && (
           <Link
             className="inline-block bg-zinc-100 hover:bg-zinc-400 text-black font-medium py-2 px-4 rounded-lg transition-colors duration-300 my-4"
-            href="/UserProfileScreen"
+            href="/userProfile/UserProfileScreen"
             onClick={() =>
               setTimeout(() => {
                 setOpen(!open);
