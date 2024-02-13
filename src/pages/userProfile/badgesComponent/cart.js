@@ -1,4 +1,5 @@
 import cart from "../../../../public/assets/cart.png";
+import cartGray from '../../../../public/assets/cart_grey.png'
 import Image from "next/image";
 const CartBadges = (props) => {
   const imageContainer = (src, alt) => {
@@ -7,8 +8,9 @@ const CartBadges = (props) => {
   return (
     <>
       <h1 className="text-center font-bold"> Cart Achievements</h1>
-      <div className="flex flex-wrap">
-        {props.Cart > 0 && imageContainer(cart, "Cart-bronze")}
+      <div className="flex flex-wrap justify-center items-center">
+        {props.Cart > 0 ? imageContainer(cart, "Cart-bronze") : imageContainer(cartGray, 
+          'cart_grey')}
       </div>
       <h1 className="font-bold text-center my-2">
         Current  Cart Recipes Count:{" "}

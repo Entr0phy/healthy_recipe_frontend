@@ -33,19 +33,23 @@ const Badges = () => {
         <h1>Loading...</h1>
       ) : (
         <div className="flex flex-col my-4">
-          {userInfo.badges.low_fat >0 && <LowFatBadges low_fat={userInfo.badges.low_fat} />}
-          {userInfo.badges.low_calorie > 0 &&<LowCalorieBadges low_Calorie={userInfo.badges.low_calorie}/>}
-          {userInfo.badges.low_sodium > 0 && <LowSodiumBadges low_Sodium = {userInfo.badges.low_sodium} />}
-          {userInfo.badges.high_protein > 0 && <HighProteinBadges high_protein = {userInfo.badges.high_protein}/>}
-          {userInfo.badges.low_sugarGI >0 && <LowSugarGIBadges low_SugarGI={userInfo.badges.low_sugarGI}/>}
-          {userInfo.badges.review >0 && <ReviewsBadges Reviews={userInfo.badges.review}/>}
-          {userInfo.badges.customise >0 && <CustomiseBadges customise={userInfo.badges.customise}/>}
-          {userInfo.badges.verify >0 && <VerifyBadges verify={userInfo.badges.verify}/>}
-          {userInfo.badges.cart >0 && <CartBadges Cart={userInfo.badges.cart}/>}
+          <LowFatBadges low_fat={userInfo.badges.low_fat} />
+          <LowCalorieBadges low_Calorie={userInfo.badges.low_calorie} />
+          <LowSodiumBadges low_Sodium={userInfo.badges.low_sodium} />
+          <HighProteinBadges high_protein={userInfo.badges.high_protein} />
+          <LowSugarGIBadges low_SugarGI={userInfo.badges.low_sugarGI} />
+          <ReviewsBadges Reviews={userInfo.badges.review} />
+          <CustomiseBadges customise={userInfo.badges.customise} />
+          <VerifyBadges verify={userInfo.badges.verify} />
+          <CartBadges Cart={userInfo.badges.cart} />
         </div>
       )}
       <div>
-      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
+        <button
+          className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2"
+          onClick={homePage}>
+          Back to Settings
+        </button>
       </div>
     </div>
   );
