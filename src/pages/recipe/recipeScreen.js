@@ -142,7 +142,7 @@ const RecipeScreen = () => {
             )}
             <Link
               className="mx-2"
-              href={`/userProfile/profilePage?profileId=${recipe.submitted_by._id}`}>
+              href={`/userProfile/profilePage?profileId=${recipe?.submitted_by._id}`}>
               Submitted By: {recipe.submitted_by.username}
             </Link>
           </div>
@@ -258,8 +258,8 @@ const RecipeScreen = () => {
                     ? JSON.parse(sessionStorage.getItem("userId"))
                     : null
                 }
-                recipeId={recipe._id}
-                questions={recipe.questions}
+                recipeId={recipe?._id}
+                questions={recipe?.questions}
               />
             </h1>
           )}
