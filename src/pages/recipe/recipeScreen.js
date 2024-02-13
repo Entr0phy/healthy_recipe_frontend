@@ -5,7 +5,7 @@ import { CiStar } from "react-icons/ci";
 import Favorites from "./recipeComponent/favorites";
 import Question from "./recipeComponent/question";
 import Link from "next/link";
-import Image from 'next/image'
+import Image from "next/image";
 
 const RecipeScreen = () => {
   const router = useRouter();
@@ -80,6 +80,10 @@ const RecipeScreen = () => {
     } else window.alert("Error, Please try again");
   };
 
+  const share = async () => {
+    await navigator.clipboard.writeText(location.href);
+    alert("Link has been copied to clipboard");
+  };
   if (!recipe)
     return (
       <>
@@ -125,6 +129,9 @@ const RecipeScreen = () => {
                   Modify Recipe
                 </button>
               )}
+          </div>
+          <div className="m-2">
+            <button className="p-1 bg-yellow-200 rounded font-semibold border-gray-200 border-2" onClick={share}>Share Recipe</button>
           </div>
 
           <div className="m-2 font-semibold text-lg flex flex-wrap">
@@ -239,9 +246,7 @@ const RecipeScreen = () => {
             <Comment
               comments={recipe.comments}
               user={
-                sessionStorage.getItem("userId") !== null
-                  ? currentUser
-                  : null
+                sessionStorage.getItem("userId") !== null ? currentUser : null
               }
               recipeId={recipe}
             />
