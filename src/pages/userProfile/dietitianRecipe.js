@@ -38,6 +38,27 @@ const DietitianRecipe = () => {
     getDietitianRecipe();
   }, []);
 
+  const deleteRecipe = async (recipeId) => {
+    const deleteRecipe = await fetch(
+      `${process.env.apiKey}/recipe/deleteRecipe`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: recipeId,
+        }),
+      }
+    );
+
+    if (deleteRecipe.status === 200) {
+      window.alert("Recipe Deleted");
+      location.reload();
+    } else window.alert("Error");
+  };
+
   return (
     <div className="flex flex-col">
       <h1 className="text-center m-2 font-bold text-3xl">
@@ -53,25 +74,42 @@ const DietitianRecipe = () => {
                 Average Recipe Rating : {average}/5
               </h1>
               {myRecipe?.query.map((recipe) => (
-                <Link
-                  key={recipe._id}
-                  href={`/recipe/recipeScreen?recipeId=${recipe._id}`}>
-                  <RecipeSearch
-                    name={recipe.name}
-                    image={recipe.image_url}
-                    tags={recipe.tags}
-                    description={recipe.description}
-                  />
-                </Link>
+                <>
+                  <Link
+                    key={recipe._id}
+                    href={`/recipe/recipeScreen?recipeId=${recipe._id}`}>
+                    <RecipeSearch
+                      name={recipe.name}
+                      image={recipe.image_url}
+                      tags={recipe.tags}
+                      description={recipe.description}
+                    />
+                  </Link>
+                  <div>
+                    <button
+                      className="p-2 bg-red-200 rounded-md m-2 font-semibold"
+                      onClick={() => {
+                        deleteRecipe(recipe._id);
+                      }}>
+                      Delete Recipe
+                    </button>
+                  </div>
+                </>
               ))}
             </>
           ) : (
-            <h1 className="text-center font-bold text-red-600 m-2">No Recipe Created Yet</h1>
+            <h1 className="text-center font-bold text-red-600 m-2">
+              No Recipe Created Yet
+            </h1>
           )}
         </div>
       )}
       <div>
-      <button className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2" onClick={homePage}>Back to Settings</button>
+        <button
+          className="p-2 bg-zinc-100 border-2 rounded font-semibold m-2"
+          onClick={homePage}>
+          Back to Settings
+        </button>
       </div>
     </div>
   );
