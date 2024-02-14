@@ -93,9 +93,15 @@ const RecipeScreen = () => {
   else {
     return (
       <div className="flex flex-col">
-         <div className="flex items-start">
-            <button className="mx-4 my-3 p-2 font-semibold bg-green-200 rounded" onClick={()=>{router.back()}}>Back</button>
-          </div>
+        <div className="flex items-start">
+          <button
+            className="mx-4 my-3 p-2 font-semibold bg-green-200 rounded"
+            onClick={() => {
+              router.back();
+            }}>
+            Back
+          </button>
+        </div>
         <h1 className="font-bold text-xl mx-6 my-2">
           {recipe.name.toUpperCase()}
         </h1>
@@ -120,9 +126,9 @@ const RecipeScreen = () => {
             </h1>
             <CiStar size={35} color="#000000" className="mx-2" />
 
-            {sessionStorage.getItem("userId") !== null && (
-              <Favorites recipe={router.query.recipeId} />
-            )}
+            {sessionStorage.getItem("userId") !== null &&
+              JSON.parse(sessionStorage.getItem("userId")).userType !==
+                "admin" && <Favorites recipe={router.query.recipeId} />}
             {sessionStorage.getItem("userId") !== null &&
               JSON.parse(sessionStorage.getItem("userId")).userType ===
                 "user" && (
@@ -134,7 +140,11 @@ const RecipeScreen = () => {
               )}
           </div>
           <div className="m-2">
-            <button className="p-1 bg-yellow-200 rounded font-semibold border-gray-200 border-2" onClick={share}>Share Recipe</button>
+            <button
+              className="p-1 bg-yellow-200 rounded font-semibold border-gray-200 border-2"
+              onClick={share}>
+              Share Recipe
+            </button>
           </div>
 
           <div className="m-2 font-semibold text-lg flex flex-wrap">
@@ -198,13 +208,15 @@ const RecipeScreen = () => {
           <div className="flex flex-col p-2 m-2">
             <div className="flex flex-wrap">
               <h1 className="font-bold text-xl underline mb-2">Ingredients</h1>
-              {sessionStorage.getItem("userId") !== null && (
-                <button
-                  className="p-1 border-2 border-grey-200 rounded mx-6 bg-gray-600 text-white"
-                  onClick={addToCart}>
-                  Add To Cart
-                </button>
-              )}
+              {sessionStorage.getItem("userId") !== null &&
+                JSON.parse(sessionStorage.getItem("userId")).userType !==
+                  "admin" && (
+                  <button
+                    className="p-1 border-2 border-grey-200 rounded mx-6 bg-gray-600 text-white"
+                    onClick={addToCart}>
+                    Add To Cart
+                  </button>
+                )}
             </div>
 
             {recipe?.ingredients?.map((ele) => (

@@ -94,7 +94,7 @@ const Comment = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: props.recipeId,
+          id: props.recipeId._id,
           commentId: commentId,
           ratings: commentRating,
         }),

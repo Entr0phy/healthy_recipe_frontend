@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import OrderCard from "./userProfileComponents/orderCard";
+import { useRouter } from "next/router";
 
 const OrderHistory = () => {
   const [order, setOrder] = useState(null);
-
+  const router = useRouter();
   useEffect(() => {
     const id = JSON.parse(sessionStorage.getItem("userId"))._id;
     const getOrder = async () => {
@@ -23,8 +24,20 @@ const OrderHistory = () => {
         <h1>Loading...</h1>
       ) : (
         <div className="m-2">
+          <div className="flex items-start">
+            <button
+              className="mx-4 p-2 font-semibold bg-green-200 rounded"
+              onClick={() => {
+                router.back();
+              }}>
+              Back
+            </button>
+          </div>
           <div className="border-2 border-gray-300 m-2 p-2 rounded">
-            <h1 className="font-bold text-red-600 text-center">Having Issues With Your Order? Please drop us a email at support@fyp.com</h1>
+            <h1 className="font-bold text-red-600 text-center">
+              Having Issues With Your Order? Please drop us a email at
+              support@fyp.com
+            </h1>
           </div>
           {order?.map((ele) => (
             <div key={ele._id}>
