@@ -12,7 +12,6 @@ export default function RecipeScreen() {
   const [filterButton, setFilterButton] = useState(false);
   const [sortButton, setSortButton] = useState(false);
   const [sort, setSort] = useState("");
-  const [initial, setInitial] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [featured, setFeatured] = useState(false);
   const router = useRouter();
@@ -36,6 +35,19 @@ export default function RecipeScreen() {
 
     fetchData();
   }, [router.isReady, router.query.setFeatured]);
+
+  useEffect(()=> {
+    const randomRecipe = async () => {
+      const data = await fetch(`${process.env.apiKey}/recipe/reconmendedRecipe`);
+      const json = await data.json();
+      setSearchResult(json);
+    }
+
+    if(!featured)
+      randomRecipe();
+    
+  },[featured])
+
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
@@ -65,8 +77,6 @@ export default function RecipeScreen() {
   };
 
   const recipeSearch = async () => {
-    setInitial(false);
-
     const recipe = await fetch(`${process.env.apiKey}/recipe/searchRecipe`, {
       method: "POST",
       headers: {
@@ -214,13 +224,13 @@ export default function RecipeScreen() {
         )}
 
         <div className="my-2">
-          {!initial && !searchResult && (
+          {!searchResult && (
             <h1>
               No recipes found with that query. Please try again or enter a
               different one.
             </h1>
           )}
-          {!initial && searchResult && (
+          {searchResult && (
             <div className="flex flex-col bg-white">
               {searchResult?.map((recipe) => (
                 <div key={recipe._id}>

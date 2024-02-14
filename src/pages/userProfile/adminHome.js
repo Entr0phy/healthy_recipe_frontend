@@ -40,7 +40,7 @@ const AdminHome = () => {
         <div
           className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-auto rounded flex justify-between"
           onClick={toggleFeatured}>
-          <h2>Toggle Featured Recipe</h2>
+          <h2>Edit Featured Recipe</h2>
           <h1>{">"}</h1>
         </div>
 

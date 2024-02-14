@@ -110,7 +110,7 @@ const Comment = (props) => {
   return (
     <div className="flex flex-col my-2">
       <div className="p-2 border-2 border-grey-400 rounded">
-        {props.user && (
+        {props.user && props.user.userType !== 'admin' && (
           <>
             <div className="w-full h-32">
               <textarea
