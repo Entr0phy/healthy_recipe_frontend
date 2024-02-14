@@ -57,35 +57,45 @@ const ProfilePage = () => {
       ) : (
         <>
           <h1 className="text-center m-4 text-3xl font-bold">
-            {userProfile.username} 
+            {userProfile.username}
           </h1>
+          <div className="flex items-start">
+            <button className="mx-4 p-2 font-semibold bg-green-200" onClick={()=>{router.back()}}>Back</button>
+          </div>
 
-          {userProfile.userType === 'user' && <div className="m-2 border-2 border-gray-400 rounded p-2">
-            <label className="m-2 font-semibold text-xl">Health Goals</label>
-            {userProfile.health_goals.map((ele) => (
-              <h1 key={Math.random()} className="m-2">
-                {ele}
-              </h1>
-            ))}
-          </div>}
-
-          {userProfile.userType === 'dietitian' && <div className="m-2 border-2 border-gray-400 rounded p-2">
-            <label className="m-2 font-semibold text-xl">Qualifications</label>
-            {userProfile.qualifications.map((ele) => (
-              <div key={ele._id} className="flex justify-between">
-              <h1 className="m-2 font-semibold">{ele.qualifications}</h1>
-              <h1 className="m-2 font-bold">{ele.dateObtained}</h1>
+          {userProfile.userType === "user" && (
+            <div className="m-2 border-2 border-gray-400 rounded p-2">
+              <label className="m-2 font-semibold text-xl">Health Goals</label>
+              {userProfile.health_goals.map((ele) => (
+                <h1 key={Math.random()} className="m-2">
+                  {ele}
+                </h1>
+              ))}
             </div>
-            ))}
-          </div>}
+          )}
 
+          {userProfile.userType === "dietitian" && (
+            <div className="m-2 border-2 border-gray-400 rounded p-2">
+              <label className="m-2 font-semibold text-xl">
+                Qualifications
+              </label>
+              {userProfile.qualifications.map((ele) => (
+                <div key={ele._id} className="flex justify-between">
+                  <h1 className="m-2 font-semibold">{ele.qualifications}</h1>
+                  <h1 className="m-2 font-bold">{ele.dateObtained}</h1>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="m-2 border-2 border-gray-400 rounded p-2">
             <label className="m-2 font-semibold text-xl">
               {userProfile.username} Recipes
             </label>
             <h1 className="text-center font-bold text-green-600 m-2">
-              {Number.isNaN(Number(average))  ? `No Recipe created` : `Recipe Average : ${average}/5`}
+              {Number.isNaN(Number(average))
+                ? `No Recipe created`
+                : `Recipe Average : ${average}/5`}
             </h1>
             {myRecipe?.query.map((ele) => (
               <Link

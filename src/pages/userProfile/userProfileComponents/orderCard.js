@@ -8,7 +8,7 @@ const OrderCard = (props) => {
       <h1 className="font-bold">
         Date Ordered: {props?.uploaded_at?.split("T")[0]}
       </h1>
-      <h1 className="font-bold">Status: {props.status}</h1>
+      <h1 className="font-bold">Status:<span className="text-green-600"> {props.status}</span></h1>
       <h1 className="font-bold">Items Ordered</h1>
       {props?.shoppingList?.map((items) => (
         <div key={items._id}>

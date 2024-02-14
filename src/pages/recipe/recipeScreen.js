@@ -93,6 +93,9 @@ const RecipeScreen = () => {
   else {
     return (
       <div className="flex flex-col">
+         <div className="flex items-start">
+            <button className="mx-4 my-3 p-2 font-semibold bg-green-200 rounded" onClick={()=>{router.back()}}>Back</button>
+          </div>
         <h1 className="font-bold text-xl mx-6 my-2">
           {recipe.name.toUpperCase()}
         </h1>

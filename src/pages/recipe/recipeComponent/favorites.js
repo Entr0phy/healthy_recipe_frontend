@@ -34,8 +34,32 @@ const Favorites = (props) => {
 
     if (addToFav.status === 200) {
       window.alert("Added To Favorites");
+      location.reload();
     } else window.alert("Error, Please try again");
   };
+
+  const removeFromFavorites = async () => {
+    const removeFromFav = await fetch(
+      `${process.env.apiKey}/auth/user/removeFromFav`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: JSON.parse(sessionStorage.getItem("userId"))._id,
+          recipeId: router.query.recipeId,
+        }),
+      }
+    );
+
+    if (removeFromFav.status === 200) {
+      window.alert("Removed From Favorites");
+      location.reload();
+    } else window.alert("Error, Please try again");
+  };
+
   return (
     <>
       {!userFavoriteRecipe ? (
@@ -43,7 +67,7 @@ const Favorites = (props) => {
       ) : userFavoriteRecipe.includes(props.recipe) ? (
         <>
         <CiHeart size={35} color="#ff0000" fill="red" />
-        <h1 className="font-bold m-1 text-red-600">Favorite</h1>
+        <button className="font-bold m-1 text-red-600" onClick={removeFromFavorites}>Remove Favorite</button>
         </>
       ) : (
         <button
