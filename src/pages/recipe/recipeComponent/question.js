@@ -107,7 +107,7 @@ const Question = (props) => {
                     </Link>
                     <h1 className="">{ele.answer}</h1>
                   </>
-                ) : props.user.userType === "user" ? (
+                ) : props.user.userType !== "dietitian" ? (
                   <h1>This Question Has yet to be answered yet</h1>
                 ) : (
                   <>

@@ -36,10 +36,6 @@ const DietitianHome = () => {
     router.push("./manageAccount");
   };
 
-  const shoppingListPage = () => {
-    router.push("./shoppingList");
-  };
-
   const myReviewPage = () => {
     router.push("./myReviews");
   };
@@ -51,11 +47,6 @@ const DietitianHome = () => {
   const profilePage = () => {
     router.push(`./profilePage?profileId=${currentUser._id}`)
   }
-
-  const badgesPage = () => {
-    router.push('./badges')
-  }
-
 
   return (
     <>
@@ -135,18 +126,6 @@ const DietitianHome = () => {
           className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between"
           onClick={savedRecipesPage}>
           <h2>Favorites </h2>
-          <h2>{">"}</h2>
-        </div>
-
-        <div className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between" onClick={badgesPage}>
-          <h2>Badges</h2>
-          <h2>{">"}</h2>
-        </div>
-
-        <div
-          className="w-80 md:w-2/5 p-2 border-2 bg-gray-300 mx-2 rounded flex justify-between"
-          onClick={shoppingListPage}>
-          <h2>Shopping List</h2>
           <h2>{">"}</h2>
         </div>
       </div>

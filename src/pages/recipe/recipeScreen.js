@@ -209,8 +209,8 @@ const RecipeScreen = () => {
             <div className="flex flex-wrap">
               <h1 className="font-bold text-xl underline mb-2">Ingredients</h1>
               {sessionStorage.getItem("userId") !== null &&
-                JSON.parse(sessionStorage.getItem("userId")).userType !==
-                  "admin" && (
+                JSON.parse(sessionStorage.getItem("userId")).userType ===
+                  "user" && (
                   <button
                     className="p-1 border-2 border-grey-200 rounded mx-6 bg-gray-600 text-white"
                     onClick={addToCart}>
