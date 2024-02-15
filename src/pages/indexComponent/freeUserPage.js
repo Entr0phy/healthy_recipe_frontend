@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import landingPage from '../../../public/assets/landing_page.jpg'
-import Image from 'next/image'
+import landingPage from "../../../public/assets/landing_page.jpg";
+import Image from "next/image";
 const FreeUserPage = () => {
   const [featured, setFeatured] = useState(null);
   const router = useRouter();
@@ -18,10 +18,14 @@ const FreeUserPage = () => {
   };
 
   const redirectToSignUpPage = () => {
-    router.push('/logIn/signUpScreen')
-  }
+    router.push("/logIn/signUpScreen");
+  };
   return (
     <div className="bg-zinc-100">
+      <video src= '/videos/mktVideo.mp4' controls>
+        Your browser does not support the video tag.
+      </video>
+
       {/* Header row with "Fresh content" and "See all" */}
       <div className="flex justify-between items-center px-6 py-4 my-2">
         <h1 className="text-2xl font-bold text-gray-800 mx-auto">
@@ -58,11 +62,7 @@ const FreeUserPage = () => {
       <div className="flex flex-wrap items-start px-6">
         {/* Picture on the left */}
         <div className="w-full md:w-1/3 p-4">
-          <Image
-            src={landingPage}
-            alt="Big Image"
-            className="w-full h-auto"
-          />
+          <Image src={landingPage} alt="Big Image" className="w-full h-auto" />
         </div>
 
         {/* Card-like containers on the right */}
@@ -170,7 +170,9 @@ const FreeUserPage = () => {
               <li>Be a part of something great!</li>
             </ul>
           </div>
-          <button className="bg-black text-white py-2 px-4 rounded" onClick={redirectToSignUpPage}>
+          <button
+            className="bg-black text-white py-2 px-4 rounded"
+            onClick={redirectToSignUpPage}>
             Get Started
           </button>
         </div>
