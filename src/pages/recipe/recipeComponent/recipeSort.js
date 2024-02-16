@@ -1,7 +1,7 @@
 import React from "react";
 
 const RecipeSort = (props) => {
-  const sort = ["cooking_time", "calories", "ratings"];
+  const sort = ["cooking_time", "nutritional_data.calories", "ratings"];
 
   return (
     <div className="flex flex-col">
@@ -10,7 +10,7 @@ const RecipeSort = (props) => {
         {sort.map((ele) => (
           <div key={Math.random()}>
             <h1 className="p-0.5 bg-gray-400 mx-1 rounded font-semibold" onClick={()=> props.filter(ele)}>
-                {ele}
+                {ele === 'nutritional_data.calories' ? 'Calories' : ele}
             </h1>
           </div>
         ))}

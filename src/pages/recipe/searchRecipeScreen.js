@@ -218,7 +218,7 @@ export default function RecipeScreen() {
 
         {sortButton && (
           <div className="bg-gray-200 rounded p-2 my-2">
-            <h1 className="font-semibold">Current Sort: {sort}</h1>
+            <h1 className="font-semibold">Current Sort: {sort === 'nutritional_data.calories' ? 'Calories' : sort}</h1>
             <RecipeSort filter={sortChange} />
           </div>
         )}
